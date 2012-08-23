@@ -1,0 +1,7 @@
+<trace>
+	<name>Positive bias on the LI (POS-BIAS)</name>
+	<event>1;1,0;LOW</event>
+	<event>2;1,0;NRM</event>
+	<event>3;1,0;EPOS</event>
+	<event>4;0,0;EPOS</event>
+</trace>

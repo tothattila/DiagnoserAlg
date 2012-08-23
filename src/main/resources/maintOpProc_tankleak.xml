@@ -1,0 +1,9 @@
+ 
+<trace>
+	<name>Tank leakage (TANK-LEAK)</name>
+	<event>1;0,1;LOW</event> 
+	<event>2;0,1;NO</event> 
+	<event>3;0,1;NO</event> 
+	<event>4;0,0;NO</event>
+</trace>
+

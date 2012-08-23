@@ -1,0 +1,8 @@
+
+<trace>
+	<name>Maintenance empty procedure</name>
+	<event>1;0,1;NRM</event> 
+	<event>2;0,1;LOW</event> 
+	<event>3;0,1;NO</event> 
+	<event>4;0,0;NO</event>
+</trace>

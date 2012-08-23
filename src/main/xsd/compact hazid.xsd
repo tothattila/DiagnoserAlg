@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+	<xs:element name="procedurehazidtable">
+	    <xs:complexType>
+		  <xs:sequence>	  
+			<xs:element ref="tablerow" minOccurs="0" maxOccurs="unbounded"/>	  
+		  </xs:sequence>  
+        </xs:complexType>		
+	</xs:element>
+
+	<xs:element name="tablerow">
+		<xs:complexType>
+		  <xs:sequence>
+			<xs:element ref="cause" minOccurs="1" maxOccurs="1" />
+			<xs:element ref="deviation" minOccurs="1" maxOccurs="1" />
+			<xs:element ref="implication" minOccurs="1" maxOccurs="1" />
+		  </xs:sequence>
+		</xs:complexType>
+	</xs:element>  
+
+	<xs:element name="cause">
+		<xs:complexType>
+		   <xs:attribute name="type" type="xs:string"/>
+		   <xs:attribute name="param" type="xs:string"/>
+		</xs:complexType>   
+	</xs:element>
+
+	<xs:element name="deviation"> 
+		<xs:complexType>
+		   <xs:attribute name="type" type="xs:string"/>
+		   <xs:attribute name="param" type="xs:string"/>
+		</xs:complexType>
+			 
+	</xs:element>
+
+	<xs:element name="implication">
+		<xs:complexType>
+		   <xs:attribute name="type" type="xs:string"/>
+		   <xs:attribute name="param" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

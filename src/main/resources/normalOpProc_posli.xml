@@ -1,0 +1,8 @@
+<!-- compact XML description of trace (1; 0;1;H);(2; 0;1;N);(3; 0;1;L);(4; 0;1;0);(5; 0;1;0) -->
+<trace>
+	<name>Positive bias on level sensor</name>
+	<event>1;1,0;LOW</event>
+	<event>2;1,0;NRM</event>
+	<event>3;1,0;EPOS</event>
+	<event>4;1,1;EPOS</event>	
+</trace>
