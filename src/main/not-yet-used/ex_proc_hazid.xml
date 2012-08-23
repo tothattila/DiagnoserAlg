@@ -1,0 +1,102 @@
+<procedurehazidtable>
+	<tablerow>
+		<cause type="rootcause" param="failed to close VA(0)" /> 
+		<deviation type="never happened" param="1;0,1,N" /> 
+		<implication type="never happened" param="2;0,1,L" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="leakage TA(0)" /> 
+		<deviation type="never happened" param="1;0,1,N" /> 
+		<implication type="earlier" param="2;0,1,L" />
+	</tablerow>
+	<tablerow>
+		<cause type="smaller" param="0;1,1,N" /> 
+		<deviation type="smaller" param="1;0,1,N" /> 
+		<implication type="smaller" param="2;0,1,L" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="leakage TA(0)" /> 
+		<deviation type="smaller" param="1;0,1,N" /> 
+		<implication type="smaller" param="2;0,1,L" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="leakage TA(0)" /> 
+		<deviation type="smaller" param="1;0,1,N" /> 
+		<implication type="earlier" param="2;0,1,L" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="leakage TA(1)" /> 
+		<deviation type="smaller" param="2;0,1,L" /> 
+		<implication type="smaller" param="3;0,1,0" />
+	</tablerow>
+	<tablerow>
+		<cause type="smaller" param="1;0,1,N" /> 
+		<deviation type="smaller" param="2;0,1,L" /> 
+		<implication type="smaller" param="3;0,1,0" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="leakage TA(1)" /> 
+		<deviation type="smaller" param="2;0,1,L" />
+		<implication type="earlier" param="3;0,1,0" />
+	</tablerow>
+	<tablerow>
+		<cause type="smaller" param="1;0,1,N" />
+		<deviation type="smaller" param="2;0,1,L" />
+		<implication type="earlier" param="3;0,1,0" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="leakage TA(1)" />
+		<deviation type="earlier" param="2;0,1,L" />
+		<implication type="smaller" param="3;0,1,0" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="leakage TA(1)" />
+		<deviation type="earlier" param="2;0,1,L" />
+		<implication type="earlier" param="3;0,1,0" />
+	</tablerow>
+	<tablerow>
+		<cause type="smaller" param="1;0,1,N" />
+		<deviation type="earlier" param="2;0,1,L" />
+		<implication type="earlier" param="3;0,1,0" />
+	</tablerow>
+	<tablerow>
+		<cause type="never happened" param="1;0,1,N" />
+		<deviation type="earlier" param="2;0,1,L" />
+		<implication type="earlier" param="3;0,1,0" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="leakage TA(2)" />
+		<deviation type="earlier" param="3;0,1,0" />
+		<implication type="earlier" param="4;0,0,0" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="leakage TA(2)" />
+		<deviation type="earlier" param="3;0,1,0" />
+		<implication type="earlier" param="4;0,0,0" />
+	</tablerow>
+	<tablerow>
+		<cause type="earlier" param="2;0,1,L" />
+		<deviation type="earlier" param="3;0,1,0" />
+		<implication type="earlier" param="4;0,0,0" />
+	</tablerow>
+	<tablerow>
+		<cause type="smaller" param="2;0,1,L" />
+		<deviation type="earlier" param="3;0,1,L" />
+		<implication type="earlier" param="4;0,0,0" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="leakage TA(3)" />
+		<deviation type="earlier" param="4;0,0,0" />
+		<implication type="notavailable" />
+	</tablerow>
+	<tablerow>
+		<cause type="smaller" param="3;0,1,0" />
+		<deviation type="earlier" param="4;0,0,0" />
+		<implication type="notavailable" />
+	</tablerow>
+	<tablerow>
+		<cause type="earlier" param="3;0,1,0" />
+		<deviation type="earlier" param="4;0,0,0" />
+		<implication type="notavailable" />
+	</tablerow>
+</procedurehazidtable>

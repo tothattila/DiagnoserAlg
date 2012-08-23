@@ -1,0 +1,182 @@
+<!-- 
+Extended description of procedure HAZID table:
+CAUSE                 | DEVIATION               | IMPLICAITION
+failed to close VA(0) | never happened(1;0,1;N) | never happened(2;0,1;L)
+leakage TA(0)         | never happened(1;0,1;N) | earlier(2;0,1;L)
+smaller(0;1,1;N)      | smaller(1;0,1;N)        | smaller(2;0,1;L)
+leakage TA(0)         | smaller(1;0,1;N)        | smaller(2;0,1;L)
+leakage TA(0)         | smaller(1;0,1;N)        | earlier(2;0,1;L)
+leakage TA(1)         | smaller(2;0,1;L)        | smaller(3;0,1;0)
+-->
+<procedurehazidtable>
+	<tablerow>
+		<cause type="rootcause">
+			<failure>failed to close VA(0)</failure>
+		</cause>
+		<deviation type="never happened">
+			<event time="1">
+				<inputs>
+					<input>0</input>
+					<input>1</input>
+				</inputs>
+				<outputs>
+					<output>N</output>
+				</outputs>
+			</event>
+		</deviation>		
+		<implication type="never happened">
+			<event time="2">
+				<inputs>
+					<input>0</input>
+					<input>1</input>
+				</inputs>
+				<outputs>
+					<output>L</output>
+				</outputs>
+		    </event>
+		</implication>
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause">
+			<failure>leakage TA(0)</failure>
+		</cause> 
+		<deviation type="never happened">
+			<event time="1">
+				<inputs>
+					<input>0</input>
+					<input>1</input>
+				</inputs>
+				<outputs>
+					<output>N</output>
+				</outputs>
+			</event>
+		</deviation>		
+		<implication type="earlier">
+			<event time="2">
+				<inputs>
+					<input>0</input>
+					<input>1</input>
+				</inputs>
+				<outputs>
+					<output>L</output>
+				</outputs>
+			</event>
+		</implication>
+	</tablerow>
+	<tablerow>
+		<cause type="smaller">
+			<event time="2">
+				<inputs>
+					<input>1</input>
+					<input>1</input>
+				</inputs>
+				<outputs>
+					<output>N</output>
+				</outputs>
+			</event>
+		</cause> 
+		<deviation type="smaller">
+			<event time="1">
+				<inputs>
+					<input>0</input>
+					<input>1</input>
+				</inputs>
+				<outputs>
+					<output>N</output>
+				</outputs>
+			</event>
+		</deviation> 
+		<implication type="smaller">
+			<event time="2">
+				<inputs>
+					<input>0</input>
+					<input>1</input>
+				</inputs>
+				<outputs>
+					<output>L</output>
+				</outputs>
+			</event>
+		</implication>
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause">
+			<failure>leakage TA(0)</failure>
+		</cause>
+		<deviation type="smaller">
+			<event time="1">
+				<inputs>
+					<input>0</input>
+					<input>1</input>
+				</inputs>
+				<outputs>
+					<output>N</output>
+				</outputs>
+			</event>
+		</deviation> 
+		<implication type="smaller">
+			<event time="2">
+				<inputs>
+					<input>0</input>
+					<input>1</input>
+				</inputs>
+				<outputs>
+					<output>L</output>
+				</outputs>
+			</event>
+		</implication>		
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause">
+			<failure>leakage TA(0)</failure>
+		</cause>
+		<deviation type="smaller">
+			<event time="1">
+				<inputs>
+					<input>0</input>
+					<input>1</input>
+				</inputs>
+				<outputs>
+					<output>N</output>
+				</outputs>
+			</event>
+		</deviation> 
+		<implication type="earlier">
+			<event time="2">
+				<inputs>
+					<input>0</input>
+					<input>1</input>
+				</inputs>
+				<outputs>
+					<output>L</output>
+				</outputs>
+			</event>
+		</implication>
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause">
+			<failure>leakage TA(1)</failure>
+		</cause>		
+		<deviation type="smaller">
+			<event time="2">
+				<inputs>
+					<input>0</input>
+					<input>1</input>
+				</inputs>
+				<outputs>
+					<output>L</output>
+				</outputs>
+			</event>
+		</deviation>
+		<implication type="smaller">
+			<event time="3">
+				<inputs>
+					<input>0</input>
+					<input>1</input>
+				</inputs>
+				<outputs>
+					<output>0</output>
+				</outputs>
+			</event>
+		</implication>
+	</tablerow>
+</procedurehazidtable>

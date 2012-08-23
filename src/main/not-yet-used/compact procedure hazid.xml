@@ -1,0 +1,42 @@
+<!-- 
+Compact description of procedure HAZID table:
+CAUSE                 | DEVIATION               | IMPLICAITION
+failed to close VA(0) | never happened(1;0,1;N) | never happened(2;0,1;L)
+leakage TA(0)         | never happened(1;0,1;N) | earlier(2;0,1;L)
+smaller(0;1,1;N)      | smaller(1;0,1;N)        | smaller(2;0,1;L)
+leakage TA(0)         | smaller(1;0,1;N)        | smaller(2;0,1;L)
+leakage TA(0)         | smaller(1;0,1;N)        | earlier(2;0,1;L)
+leakage TA(1)         | smaller(2;0,1;L)        | smaller(3;0,1;0)
+-->
+<procedurehazidtable>
+	<tablerow>
+		<cause type="rootcause" param="failed to close VA(0)" /> 
+		<deviation type="never happened" param="1;0,1;N" /> 
+		<implication type="never happened" param="2;0,1;L" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="leakage TA(0)" /> 
+		<deviation type="never happened" param="1;0,1;N" /> 
+		<implication type="earlier" param="2;0,1;L" />
+	</tablerow>
+	<tablerow>
+		<cause type="smaller" param="0;1,1;N" /> 
+		<deviation type="smaller" param="1;0,1;N" /> 
+		<implication type="smaller" param="2;0,1;L" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="leakage TA(0)" /> 
+		<deviation type="smaller" param="1;0,1;N" /> 
+		<implication type="smaller" param="2;0,1;L" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="leakage TA(0)" /> 
+		<deviation type="smaller" param="1;0,1;N" /> 
+		<implication type="earlier" param="2;0,1;L" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="leakage TA(1)" /> 
+		<deviation type="smaller" param="2;0,1;L" /> 
+		<implication type="smaller" param="3;0,1;0" />
+	</tablerow>	
+</procedurehazidtable>

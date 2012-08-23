@@ -1,0 +1,107 @@
+<procedurehazidtable>
+
+	<tablerow>
+		<cause type="rootcause" param="TANK-LEAK(1)" />
+		<deviation type="never-happened" param="2;1,0;L" />
+		<implication type="never-happened" param="3;1,0;N" />	
+	</tablerow>
+	<tablerow>
+		<cause type="never-happened" param="2;1,0;L" />
+		<deviation type="never-happened" param="3;1,0;N" />
+		<implication type="never-happened" param="4;1,1;N" />	
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="TANK-LEAK(1)" /> 
+		<deviation type="smaller" param="2;1,0;L" /> 
+		<implication type="smaller" param="3;1,0;N" />
+	</tablerow>
+	<tablerow>
+		<cause type="smaller" param="2;1,0;L" /> 
+		<deviation type="smaller" param="3;1,0;N" /> 
+		<implication type="smaller" param="4;1,1;N" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="POS-BIAS(1)" /> 
+		<deviation type="greater" param="1;1,0;0" /> 
+		<implication type="greater" param="2;1,0;L" />
+	</tablerow>
+	<tablerow>
+		<cause type="greater" param="1;1,0;0" /> 
+		<deviation type="greater" param="2;1,0;L" /> 
+		<implication type="greater" param="3;1,0;N" />
+	</tablerow>
+	<tablerow>
+		<cause type="greater" param="2;1,0;L" /> 
+		<deviation type="greater" param="3;1,0;N" /> 
+		<implication type="never-happened" param="4;1,1;N" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="POS-BIAS(1)" /> 
+		<deviation type="never-happened" param="1;1,0;0" /> 
+		<implication type="earlier" param="2;1,0;L" />
+	</tablerow>
+	<tablerow>
+		<cause type="never-happened" param="1;1,0;0" /> 
+		<deviation type="earlier" param="2;1,0;L" /> 
+		<implication type="earlier" param="3;1,0;N" />
+	</tablerow>
+	<tablerow>
+		<cause type="earlier" param="2;1,0;L" /> 
+		<deviation type="earlier" param="3;1,0;N" /> 
+		<implication type="never-happened" param="4;1,1;N" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="NEG-BIAS(1)" />" />
+		<deviation type="smaller" param="1;1,0;0" /> 
+		<implication type="smaller" param="2;1,0;L" />
+	</tablerow>
+	<tablerow>
+		<cause type="smaller" param="1;1,0;0" /> 
+		<deviation type="smaller" param="2;1,0;L" /> 
+		<implication type="smaller" param="3;1,0;N" />
+	</tablerow>
+	<tablerow>
+		<cause type="smaller" param="2;1,0;L" /> 
+		<deviation type="smaller" param="3;1,0;N" /> 
+		<implication type="smaller" param="4;1,1;N" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="NEG-BIAS(1)" />
+		<deviation type="later" param="1;1,0;0" /> 
+		<implication type="later" param="2;1,0;L" />
+	</tablerow>
+	<tablerow>
+		<cause type="later" param="1;1,0;0" /> 
+		<deviation type="later" param="2;1,0;L" /> 
+		<implication type="never-happened" param="3;1,0;N" />
+	</tablerow>
+	<tablerow>
+		<cause type="later" param="2;1,0;L" /> 
+		<deviation type="never-happened" param="3;1,0;N" /> 
+		<implication type="never-happened" param="4;1,1;N" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="VA1-CONGESTION(1)" />
+		<deviation type="smaller" param="2;1,0;L" />
+		<implication type="smaller" param="3;1,0;N" />
+	</tablerow>
+	<tablerow>
+		<cause type="smaller" param="2;1,0;L" /> 
+		<deviation type="smaller" param="3;1,0;N" /> 
+		<implication type="smaller" param="4;1,1;N" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="VA2-CONGESTION(1)" />
+		<deviation type="never-happened" param="4;1,1;N" /> 
+		<implication type="notavailable" />
+	</tablerow>
+	<tablerow>
+		<cause type="rootcause" param="VA2-CONGESTION(1)" />
+		<deviation type="greater" param="4;1,1;N" /> 
+		<implication type="notavailable" />
+	</tablerow>
+	
+</procedurehazidtable>
+
+
+
