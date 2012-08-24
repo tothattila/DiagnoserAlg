@@ -27,7 +27,7 @@ public class HazidTable {
        List<HazidElement> result = new ArrayList<HazidElement>();
 
        for(HazidElement[] row: hazidTable) {
-           if ((deviation.equals(row[1])) && (implication.equals(row[2]))) {
+           if ((deviation.equalsWithOtherHazidElement(row[1])) && (implication.equalsWithOtherHazidElement(row[2]))) {
                result.add(row[0]);
            }
 

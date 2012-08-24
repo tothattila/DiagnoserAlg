@@ -12,7 +12,7 @@ public class NotAvailable implements HazidElement {
     public String toString() { return "Not available"; }
 
     @Override
-    public boolean equals(HazidElement hazidElement) {
+    public boolean equalsWithOtherHazidElement(HazidElement hazidElement) {
         if (hazidElement instanceof NotAvailable) {
             return true;
         }

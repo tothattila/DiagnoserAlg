@@ -24,7 +24,7 @@ public class RootCause implements HazidElement {
     public String toString() { return component; }
 
     @Override
-    public boolean equals(HazidElement hazidElement) {
+    public boolean equalsWithOtherHazidElement(HazidElement hazidElement) {
         if (hazidElement instanceof RootCause) {
             if (component.equals(((RootCause)hazidElement).component)) {
                 return true;

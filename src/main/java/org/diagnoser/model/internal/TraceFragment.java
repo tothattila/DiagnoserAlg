@@ -1,5 +1,6 @@
 package org.diagnoser.model.internal;
 
+import org.diagnoser.model.internal.deviation.Deviation;
 import org.diagnoser.model.internal.exception.InvalidOutputSize;
 
 import java.util.ArrayList;
@@ -65,11 +66,11 @@ public class TraceFragment {
             throw new InvalidOutputSize("Cannot compare `" + toString() + "` with `" + otherFragment.toString() + "`");
         }
         ArrayList<Deviation> results = new ArrayList<Deviation>();
-        for (int i=0;i<outputs.size();i++) {
-            switch(compareQualitativeValues(outputs.get(i), otherFragment.outputs.get(i))) {
+        for (int outputIndex=0;outputIndex<outputs.size();outputIndex++) {
+            switch(compareQualitativeValues(outputs.get(outputIndex), otherFragment.outputs.get(outputIndex))) {
                 case EQUALS: break;
-                case SMALLER: results.add(new Deviation(Keyword.SMALLER, this)); break;
-                case GREATER: results.add(new Deviation(Keyword.GREATER, this)); break;
+                case SMALLER: results.add(new Deviation(KeyWord.createSmaller(outputIndex), this)); break;
+                case GREATER: results.add(new Deviation(KeyWord.createGreater(outputIndex), this)); break;
             }
         }
         return results;

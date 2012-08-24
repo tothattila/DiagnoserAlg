@@ -1,4 +1,8 @@
-package org.diagnoser.model.internal;
+package org.diagnoser.model.internal.deviation;
+
+import org.diagnoser.model.internal.HazidElement;
+import org.diagnoser.model.internal.KeyWord;
+import org.diagnoser.model.internal.TraceFragment;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,25 +13,23 @@ package org.diagnoser.model.internal;
  */
 public class Deviation implements HazidElement {
 
-    protected Keyword keyWord;
+    protected KeyWord keyWord;
     protected TraceFragment fragment;
-
-    // TODO
     protected int outputIndex;
 
-    public Deviation(final Keyword deviationType, final TraceFragment originalFragment) {
+    public Deviation(final KeyWord deviationType, final TraceFragment originalFragment) {
        this.keyWord = deviationType;
        this.fragment = originalFragment;
     }
 
     public String toString() {
         String buffer = new String();
-        buffer += keyWord.name() + " (" + fragment.toString() + ")";
+        buffer += keyWord.toString() + " (" + fragment.toString() + ")";
         return buffer;
     }
 
     @Override
-    public boolean equals(HazidElement hazidElement) {
+    public boolean equalsWithOtherHazidElement(HazidElement hazidElement) {
         if (hazidElement instanceof Deviation) {
             if (keyWord.equals(((Deviation)hazidElement).keyWord) && (fragment.equals(((Deviation)hazidElement).fragment)) ) {
                 return true;

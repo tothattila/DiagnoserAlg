@@ -1,9 +1,8 @@
-package org.diagnoser.model.internal;
+package org.diagnoser.model.internal.deviation;
 
-import org.diagnoser.model.internal.exception.InvalidInputFormat;
-import org.diagnoser.model.internal.exception.InvalidTraceFragment;
-
-import java.util.Arrays;
+import org.diagnoser.model.internal.HazidElement;
+import org.diagnoser.model.internal.KeyWord;
+import org.diagnoser.model.internal.TraceFragment;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,7 +15,7 @@ public class DeviationAtTime extends Deviation {
 
     private Integer timeInstant;
 
-    public DeviationAtTime(final Keyword keyWord, final Integer time, final TraceFragment originalFragment) {
+    public DeviationAtTime(final KeyWord keyWord, final Integer time, final TraceFragment originalFragment) {
         super(keyWord,originalFragment);
         this.timeInstant = time;
     }
@@ -26,7 +25,7 @@ public class DeviationAtTime extends Deviation {
         this.timeInstant = time;
     }
 
-    public DeviationAtTime(final Keyword keyWord, final String traceFragmentWithTime)  {
+    public DeviationAtTime(final KeyWord keyWord, final String traceFragmentWithTime)  {
         super(keyWord, new TraceFragment(traceFragmentWithTime.split(";")[1], traceFragmentWithTime.split(";")[2]));
         this.timeInstant = Integer.valueOf(traceFragmentWithTime.split(";")[0]);
     }
@@ -37,10 +36,10 @@ public class DeviationAtTime extends Deviation {
     }
 
     @Override
-    public boolean equals(HazidElement hazidElement) {
+    public boolean equalsWithOtherHazidElement(HazidElement hazidElement) {
         if (hazidElement instanceof DeviationAtTime) {
 
-            Keyword otherKeyword = ((DeviationAtTime)hazidElement).keyWord;
+            KeyWord otherKeyword = ((DeviationAtTime)hazidElement).keyWord;
             TraceFragment otherFragment = ((DeviationAtTime)hazidElement).fragment;
             Integer otherTimeInstant = ((DeviationAtTime)hazidElement).timeInstant;
 
@@ -57,7 +56,7 @@ public class DeviationAtTime extends Deviation {
 
     public String toString() {
         String buffer = new String();
-        buffer += keyWord.name() + "(" + timeInstant + ";" + fragment.toString() + ")";
+        buffer += keyWord.toString() + "(" + timeInstant + ";" + fragment.toString() + ")";
         return buffer;
     }
 

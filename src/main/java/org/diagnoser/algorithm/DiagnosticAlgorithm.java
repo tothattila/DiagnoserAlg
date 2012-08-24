@@ -2,6 +2,8 @@ package org.diagnoser.algorithm;
 
 import org.diagnoser.algorithm.exception.TooFewDeviations;
 import org.diagnoser.model.internal.*;
+import org.diagnoser.model.internal.deviation.Deviation;
+import org.diagnoser.model.internal.deviation.DeviationAtTime;
 import org.diagnoser.model.internal.exception.InvalidOutputSize;
 
 
@@ -121,7 +123,7 @@ public class DiagnosticAlgorithm {
 
     private boolean containsHazidElement(List<HazidElement> hazidElList, HazidElement h) {
         for (HazidElement hzd : hazidElList) {
-            if (hzd.equals(h)) {
+            if (hzd.equalsWithOtherHazidElement(h)) {
                 return true;
             }
         }
@@ -141,7 +143,7 @@ public class DiagnosticAlgorithm {
     private boolean deviationSetContainDeviationBeforeDeviation(Set<DeviationAtTime> allDeviations, HazidElement possibleCause, HazidElement implication) {
         if(implication instanceof DeviationAtTime) {
            for (DeviationAtTime deviation : allDeviations) {
-               if (deviation.equals(possibleCause) && (deviation.getTime() < ((DeviationAtTime) implication).getTime())) {
+               if (deviation.equalsWithOtherHazidElement(possibleCause) && (deviation.getTime() < ((DeviationAtTime) implication).getTime())) {
                    return true;
                }
            }
@@ -166,7 +168,7 @@ public class DiagnosticAlgorithm {
 
 
            for (DeviationAtTime second : deviationList) {
-               if (!first.equals(second)) {
+               if (!first.equalsWithOtherHazidElement(second)) {
                    if (first.getTime() < second.getTime()) {
                        List<DeviationAtTime> pair = new ArrayList<DeviationAtTime>();
                        pair.add(first);

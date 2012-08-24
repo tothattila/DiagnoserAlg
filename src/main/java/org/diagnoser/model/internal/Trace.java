@@ -1,5 +1,7 @@
 package org.diagnoser.model.internal;
 
+import org.diagnoser.model.internal.deviation.Deviation;
+import org.diagnoser.model.internal.deviation.DeviationAtTime;
 import org.diagnoser.model.internal.exception.AlreadyPresentException;
 import org.diagnoser.model.internal.exception.InvalidOutputSize;
 
@@ -52,13 +54,13 @@ public class Trace {
 
         for (Integer time :trace.keySet()) {
             if (!otherTrace.containsFragment(trace.get(time))) {
-                result.add(new DeviationAtTime(Keyword.NEVERHAPPENED, time, trace.get(time)));
+                result.add(new DeviationAtTime(KeyWord.createNeverHappened(), time, trace.get(time)));
             }
             else if (otherTrace.getFragmentFirstOccurenceInTime(trace.get(time)) < this.getFragmentFirstOccurenceInTime(trace.get(time))) {
-                result.add(new DeviationAtTime(Keyword.EARLIER, time, trace.get(time)));
+                result.add(new DeviationAtTime(KeyWord.createEarlier(), time, trace.get(time)));
             }
             else if (otherTrace.getFragmentFirstOccurenceInTime(trace.get(time)) > this.getFragmentFirstOccurenceInTime(trace.get(time))) {
-                result.add(new DeviationAtTime(Keyword.LATER, time, trace.get(time)));
+                result.add(new DeviationAtTime(KeyWord.createLater(), time, trace.get(time)));
             }
         }
 

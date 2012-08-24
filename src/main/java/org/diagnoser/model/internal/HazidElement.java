@@ -9,6 +9,6 @@ package org.diagnoser.model.internal;
  */
 public interface HazidElement {
 
-    boolean equals(HazidElement hazidElement);
+    boolean equalsWithOtherHazidElement(HazidElement hazidElement);
 
 }

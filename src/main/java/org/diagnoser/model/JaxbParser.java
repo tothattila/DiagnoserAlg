@@ -3,6 +3,7 @@ package org.diagnoser.model;
 import org.diagnoser.model.exception.InvalidFormatException;
 import org.diagnoser.model.exception.UnsupportedHazidType;
 import org.diagnoser.model.internal.*;
+import org.diagnoser.model.internal.deviation.DeviationAtTime;
 import org.diagnoser.model.internal.exception.InvalidOutput;
 import org.diagnoser.model.internal.exception.AlreadyPresentException;
 import org.diagnoser.model.internal.exception.CorruptTraceException;
@@ -10,12 +11,10 @@ import org.diagnoser.model.internal.exception.InvalidTraceFragment;
 import org.diagnoser.model.xml.compact.hazid.Procedurehazidtable;
 import org.diagnoser.model.xml.compact.hazid.Tablerow;
 
-import javax.swing.text.TableView;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.util.Arrays;
 
 /**
  * Created with IntelliJ IDEA.
@@ -99,15 +98,15 @@ public class JaxbParser {
             if (type.equals("rootcause")) {
                 result = new RootCause(param);
             } else if (type.equals("never-happened")) {
-                result = new DeviationAtTime(Keyword.NEVERHAPPENED, checkParam(param));
+                result = new DeviationAtTime(KeyWord.createNeverHappened(), checkParam(param));
             } else if (type.equals("earlier")) {
-                result = new DeviationAtTime(Keyword.EARLIER, checkParam(param));
+                result = new DeviationAtTime(KeyWord.createEarlier(), checkParam(param));
             } else if (type.equals("later")) {
-                result = new DeviationAtTime(Keyword.LATER, checkParam(param));
+                result = new DeviationAtTime(KeyWord.createLater(), checkParam(param));
             } else if (type.equals("greater")) {
-                result = new DeviationAtTime(Keyword.GREATER, checkParam(param));
+                result = new DeviationAtTime(KeyWord.createGreater(0), checkParam(param));
             }  else if (type.equals("smaller")) {
-                result = new DeviationAtTime(Keyword.SMALLER, checkParam(param));
+                result = new DeviationAtTime(KeyWord.createSmaller(0), checkParam(param));
             }  else if (type.equals("notavailable")) {
                 result = new NotAvailable();
             }  else {
