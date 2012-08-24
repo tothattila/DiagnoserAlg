@@ -26,15 +26,17 @@ public class MainClass {
     public static void main(final String[] args) {
 
         if (args.length < 3) {
-            LogPrinter.printAndExit("Usage: ./command <hazidXml> <nominalTrace> <analysableTrace>");
+            LogPrinter.printAndExit("Usage: ./command <hazidXml> <nominalTrace> <analysableTrace> [verbose]");
         }
         LogPrinter.printMessage("");
-        LogPrinter.printCaption("   BEGINNING DIAGNOSIS   ");
+        LogPrinter.printCaption("   BEGIN DIAGNOSIS   ");
         HazidTable compactHazid = null;
         Trace compactNominalTrace = null;
         Trace compactTrace = null;
 
         checkFile(args[0], args[1], args[2]);
+
+
 
         try {
             compactHazid = new JaxbParser().parseHazidXml(args[0]);
@@ -56,7 +58,9 @@ public class MainClass {
             LogPrinter.printMessage("Nominal trace:  \n" + compactNominalTrace.toString() + " in file " + args[1]);
             LogPrinter.printMessage("Analysis trace: \n" + compactTrace.toString() + " in file " + args[2]);
 
-            LogPrinter.disable();
+            if (!isVerbose(args)) {
+                LogPrinter.disable();
+            }
 
             LogPrinter.printMessage("Parsed HAZID table:");
             LogPrinter.printMessage(compactHazid.toString());
@@ -88,7 +92,9 @@ public class MainClass {
             LogPrinter.printAndExit("Too few deviations. ", tooFewDeviations);
         }
 
-        LogPrinter.enable();
+        if (!isVerbose(args)) {
+           LogPrinter.enable();
+        }
 
         LogPrinter.printCaption("     DIAGNOSTIC FINAL RESULTS      ");
 
@@ -103,6 +109,13 @@ public class MainClass {
         }
 
 
+    }
+
+    private static boolean isVerbose(String[] args) {
+        if (args.length > 3) {
+            return "verbose".equals(args[3]);
+        }
+        return false;
     }
 
     private static void checkFile(String... args) {
