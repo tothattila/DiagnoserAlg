@@ -3,6 +3,6 @@
 	<name>Valve va2 congestion</name>
 	<event>1;1,0;NO</event>
 	<event>2;1,0;LOW</event>
-	<event>3;1,0;LOW</event>
+	<event>3;1,0;NRM</event>
 	<event>4;1,1;EPOS</event>	
 </trace>

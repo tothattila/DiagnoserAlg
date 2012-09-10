@@ -44,7 +44,7 @@ public class DiagnosticAlgorithm {
     public void run() throws InvalidOutputSize, TooFewDeviations {
 
         List<DeviationAtTime> allDeviations = nominalTrace.collectDeviationsFrom(analysisTrace);
-        LogPrinter.printMessage("All Deviations:");
+        LogPrinter.printMessage("Deviations:");
         for(Deviation d:allDeviations) {
             LogPrinter.printMessage(d.toString() );
         }
@@ -65,12 +65,12 @@ public class DiagnosticAlgorithm {
            beginTimeInstant = beginTimeInstant - 1;
            endTimeInstant = endTimeInstant - 1;
         } while (initialDeviations.size() < 2);
-        LogPrinter.printMessage("Initial Deviations (to begin HAZID table search):");
+        LogPrinter.printMessage("Initial Deviations (Final Deviation Pairs will be created from this set):");
         for(Deviation d:initialDeviations) {
             LogPrinter.printMessage(d.toString());
         }
 
-        LogPrinter.printMessage("Deviation pairs to start from:");
+        LogPrinter.printMessage("Final Deviation Pairs to start from:");
 
         List<List<DeviationAtTime>> deviationPairs = generateDeviationPairsFrom(initialDeviations);
         for(List<DeviationAtTime> d:deviationPairs) {
