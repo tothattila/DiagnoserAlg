@@ -26,10 +26,8 @@ public class TraceFragment {
 
     }
 
-    public TraceFragment(final String inputs, final String outputs) {
-
-        this(Arrays.asList(inputs.split(",")), Arrays.asList(outputs.split(",")));
-
+    public TraceFragment(final String traceFragmentWithTime) {
+        this(new ArrayList<String>(EventParser.extractInputMap(traceFragmentWithTime).values()), new ArrayList<String>(EventParser.extractOutputMap(traceFragmentWithTime).values()));
     }
 
     public String toString() {

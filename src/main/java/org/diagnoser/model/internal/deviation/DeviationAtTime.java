@@ -1,5 +1,6 @@
 package org.diagnoser.model.internal.deviation;
 
+import org.diagnoser.model.internal.EventParser;
 import org.diagnoser.model.internal.HazidElement;
 import org.diagnoser.model.internal.KeyWord;
 import org.diagnoser.model.internal.TraceFragment;
@@ -26,8 +27,8 @@ public class DeviationAtTime extends Deviation {
     }
 
     public DeviationAtTime(final KeyWord keyWord, final String traceFragmentWithTime)  {
-        super(keyWord, new TraceFragment(traceFragmentWithTime.split(";")[1], traceFragmentWithTime.split(";")[2]));
-        this.timeInstant = Integer.valueOf(traceFragmentWithTime.split(";")[0]);
+        super(keyWord, new TraceFragment(traceFragmentWithTime));
+        this.timeInstant = EventParser.extractTimeInstant(traceFragmentWithTime);
     }
 
     public DeviationAtTime(DeviationAtTime devAtTime) {

@@ -15,6 +15,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Created with IntelliJ IDEA.
@@ -51,21 +54,23 @@ public class JaxbParser {
 
         for (String fragment:xmlTrace.getEvent()) {
 
-            String[] traceParts = fragment.split(";");
-
-            if (traceParts.length != 3) {
+            if (!EventParser.checkLength(fragment)) {
                 throw new InvalidTraceFragment("Invalid trace fragment in XML `" + xmlFile +"`" + " and the fragment is '" + fragment + "'" );
             }
 
-            if (Integer.valueOf(traceParts[TIME_PART]) != currentTime) {
+            if (EventParser.extractTimeInstant(fragment) != currentTime) {
                 throw new CorruptTraceException("Time flow is not continuous in trace at event line `"+ fragment +"` in file `"+ xmlFile+ "`");
             }
 
-            if (!checkOutputAgainstQualitativeRangeSpace(traceParts[OUTPUT_PART])) {
+            if (!EventParser.checkOutputValues(fragment)) {
                 throw new InvalidOutput("Output value not of qualitative range space at event `"+fragment+"` in file `"+xmlFile+"`");
             }
 
-            retTrace.addFragment(Integer.valueOf(currentTime), new TraceFragment(traceParts[INPUT_PART], traceParts[OUTPUT_PART]));
+            if (!EventParser.checkNaming(fragment)) {
+                throw new InvalidTraceFragment("Either an input or an output was not named (<name>:<value> syntax) in `"+fragment+"` in file `"+xmlFile+"`");
+            }
+
+            retTrace.addFragment(EventParser.extractTimeInstant(fragment), new TraceFragment(new ArrayList<String>(EventParser.extractInputMap(fragment).values()), new ArrayList<String>(EventParser.extractOutputMap(fragment).values())));
 
             currentTime++;
         }
@@ -92,7 +97,7 @@ public class JaxbParser {
 
     private HazidElement createElementFromTypeAndParam(String type, String param) throws UnsupportedHazidType, InvalidFormatException, InvalidTraceFragment {
 
-        HazidElement result;
+        final HazidElement result;
 
         try {
             if (type.equals("rootcause")) {
@@ -114,7 +119,8 @@ public class JaxbParser {
             }
             }
         catch (ArrayIndexOutOfBoundsException exc) {
-            throw new InvalidFormatException("Invalid param format found in HAZID XML. Type: `"+type+"` Param: `"+param+"`" );
+            exc.printStackTrace();
+            throw new InvalidFormatException("Invalid param format found in HAZID XML. Type: `"+type+"` Param: `"+param+"`");
         }
 
         return result;
@@ -122,31 +128,15 @@ public class JaxbParser {
 
     private String checkParam(String param) throws InvalidTraceFragment {
         if (param.split(";").length != 3) {
-            throw new InvalidTraceFragment("Not correct trace fragment :" + param);
+            throw new InvalidTraceFragment("Not correct trace fragment `" + param + "`");
+        }
+        else if (!EventParser.checkNaming(param))  {
+            throw new InvalidTraceFragment("Please name inputs and outputs (<name>:<value) in param `" + param + "`");
+        } else if (EventParser.checkOutputValues(param)) {
+            throw new InvalidTraceFragment("Please use valid qualitative values for outputs in param `" + param + "`");
         }
 
         return param;
     }
-
-    private boolean checkOutputAgainstQualitativeRangeSpace(String output) {
-
-        final String[] parts = output.split(",");
-
-        try {
-            for (String part:parts) {
-               QualitativeValue.valueOf(part);
-
-            }
-        }
-        catch (IllegalArgumentException exc) {
-            return false;
-        }
-
-        return true;
-    }
-
-
-
-
 
 }
