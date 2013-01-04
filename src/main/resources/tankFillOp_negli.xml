@@ -1,7 +1,7 @@
 <trace>
 	<name>Negative bias on the LI (NEG-BIAS)</name>
-	<event>1;1,0;ENEG</event>
-	<event>2;1,0;NO</event>
-	<event>3;1,0;LOW</event>
-	<event>4;0,0;LOW</event>
+	<event>1;VA1:1,VA2:0;LI:ENEG</event>
+	<event>2;VA1:1,VA2:0;LI:NO</event>
+	<event>3;VA1:1,VA2:0;LI:LOW</event>
+	<event>4;VA1:0,VA2:0;LI:LOW</event>
 </trace>

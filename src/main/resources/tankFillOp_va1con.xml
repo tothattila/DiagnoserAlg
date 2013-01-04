@@ -1,7 +1,7 @@
 <trace>
 	<name>Valve va1 congestion (VA1-CONGESTION)</name>
-	<event>1;1,0;NO</event>
-	<event>2;1,0;NO</event>
-	<event>3;1,0;NO</event>
-	<event>4;0,0;NO</event>
+	<event>1;VA1:1,VA2:0;LI:NO</event>
+	<event>2;VA1:1,VA2:0;LI:NO</event>
+	<event>3;VA1:1,VA2:0;LI:NO</event>
+	<event>4;VA1:0,VA2:0;LI:NO</event>
 </trace>
