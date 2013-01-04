@@ -132,7 +132,7 @@ public class JaxbParser {
         }
         else if (!EventParser.checkNaming(param))  {
             throw new InvalidTraceFragment("Please name inputs and outputs (<name>:<value) in param `" + param + "`");
-        } else if (EventParser.checkOutputValues(param)) {
+        } else if (!EventParser.checkOutputValues(param)) {
             throw new InvalidTraceFragment("Please use valid qualitative values for outputs in param `" + param + "`");
         }
 
