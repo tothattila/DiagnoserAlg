@@ -1,8 +1,8 @@
 package org.diagnoser.model.internal.deviation;
 
+import org.diagnoser.model.internal.Event;
 import org.diagnoser.model.internal.HazidElement;
 import org.diagnoser.model.internal.KeyWord;
-import org.diagnoser.model.internal.TraceFragment;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,10 +14,10 @@ import org.diagnoser.model.internal.TraceFragment;
 public class Deviation implements HazidElement {
 
     protected KeyWord keyWord;
-    protected TraceFragment fragment;
+    protected Event fragment;
     protected int outputIndex;
 
-    public Deviation(final KeyWord deviationType, final TraceFragment originalFragment) {
+    public Deviation(final KeyWord deviationType, final Event originalFragment) {
        this.keyWord = deviationType;
        this.fragment = originalFragment;
     }

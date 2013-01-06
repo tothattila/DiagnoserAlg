@@ -2,10 +2,11 @@ package org.diagnoser.model.internal;
 
 import org.diagnoser.model.internal.deviation.Deviation;
 import org.diagnoser.model.internal.exception.InvalidOutputSize;
+import sun.applet.resources.MsgAppletViewer_sv;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,57 +15,55 @@ import java.util.List;
  * Time: 10:37 AM
  * To change this template use File | Settings | File Templates.
  */
-public class TraceFragment {
+public class Event {
 
-    private List<String> inputs;
-    private List<String> outputs;
+    private Map<String,String> inputs;
+    private Map<String,String> outputs;
 
-    public TraceFragment(final List<String> inputs, final List<String> outputs) {
+    public Event(final Map<String,String> inputs, final Map<String,String> outputs) {
 
         this.inputs = inputs;
         this.outputs = outputs;
 
     }
 
-    public TraceFragment(final String traceFragmentWithTime) {
-        this(new ArrayList<String>(EventParser.extractInputMap(traceFragmentWithTime).values()), new ArrayList<String>(EventParser.extractOutputMap(traceFragmentWithTime).values()));
+    public Event(final String traceFragmentWithTime) {
+        this(EventParser.extractInputMap(traceFragmentWithTime), EventParser.extractOutputMap(traceFragmentWithTime));
     }
 
     public String toString() {
         String result = "";
 
-        for (String in:inputs) { result += in + ","; }
+        for (String in:inputs.keySet()) { result += "["+in+"]:'" + inputs.get(in) + "',"; }
         result = result.substring(0, result.length()-1);
 
         result += ";";
-        for (String out:outputs) { result += out + ","; }
+        for (String out:outputs.keySet()) { result += "["+out+"]:'" + outputs.get(out) + "',"; }
         result = result.substring(0, result.length()-1);
 
         return result;
     }
 
-    public boolean compareInputWith(TraceFragment otherFragment) {
+    public boolean compareInputWith(Event otherFragment) {
         if (otherFragment.inputs.size() != inputs.size()) {
             return false;
         }
 
-        for (int i=0;i<inputs.size();i++) {
+        for (String i:inputs.keySet()) {
 
             if (!inputs.get(i).equals(otherFragment.inputs.get(i))) {
                return false;
             }
         }
-
         return true;
-
     }
 
-    public List<Deviation> compareOutputWith(TraceFragment otherFragment) throws InvalidOutputSize {
+    public List<Deviation> compareOutputWith(Event otherFragment) throws InvalidOutputSize {
         if (otherFragment.outputs.size() != outputs.size()) {
             throw new InvalidOutputSize("Cannot compare `" + toString() + "` with `" + otherFragment.toString() + "`");
         }
         ArrayList<Deviation> results = new ArrayList<Deviation>();
-        for (int outputIndex=0;outputIndex<outputs.size();outputIndex++) {
+        for (String outputIndex:outputs.keySet()) {
             switch(compareQualitativeValues(outputs.get(outputIndex), otherFragment.outputs.get(outputIndex))) {
                 case EQUALS: break;
                 case SMALLER: results.add(new Deviation(KeyWord.createSmaller(outputIndex), this)); break;
@@ -85,7 +84,7 @@ public class TraceFragment {
         return QualitativeRelation.EQUALS;
     }
 
-    public boolean equals(final TraceFragment other) {
+    public boolean equals(final Event other) {
 
        boolean result;
 

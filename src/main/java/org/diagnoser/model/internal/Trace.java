@@ -19,15 +19,15 @@ import java.util.Map;
  */
 public class Trace {
 
-    private Map<Integer, TraceFragment> trace;
+    private Map<Integer, Event> trace;
     private String name;
 
     public Trace(final String name) {
         this.name = name;
-        trace = new HashMap<Integer, TraceFragment>();
+        trace = new HashMap<Integer, Event>();
     }
 
-    public void addFragment(Integer timeInstant, TraceFragment traceFragment) throws AlreadyPresentException {
+    public void addFragment(Integer timeInstant, Event traceFragment) throws AlreadyPresentException {
         if (trace.containsKey(timeInstant)) {
             throw new AlreadyPresentException("Trace `" + name + "` already contains value for time instant `" + timeInstant + "`. The value is `" + trace.get(timeInstant).toString() + "` while the new value to insert was `"+traceFragment.toString()+"`");
         }
@@ -91,7 +91,7 @@ public class Trace {
         return length;
     }
 
-    private Integer getFragmentFirstOccurenceInTime(final TraceFragment fragment) {
+    private Integer getFragmentFirstOccurenceInTime(final Event fragment) {
 
         for (Integer time : trace.keySet()) {
             if (trace.get(time).equals(fragment)) {
@@ -101,9 +101,9 @@ public class Trace {
         return -1;
     }
 
-    private boolean containsFragment(final TraceFragment checkFragment) {
+    private boolean containsFragment(final Event checkFragment) {
 
-        for (TraceFragment fragment : trace.values()) {
+        for (Event fragment : trace.values()) {
             if (fragment.equals(checkFragment)) {
                 return true;
             }

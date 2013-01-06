@@ -16,8 +16,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,10 +25,6 @@ import java.util.Collections;
  * To change this template use File | Settings | File Templates.
  */
 public class JaxbParser {
-
-    private static final int TIME_PART = 0;
-    private static final int INPUT_PART = 1;
-    private static final int OUTPUT_PART = 2;
 
     public HazidTable parseHazidXml(final String xmlFile) throws JAXBException, UnsupportedHazidType, InvalidFormatException, InvalidTraceFragment {
         final JAXBContext context = JAXBContext
@@ -70,7 +64,7 @@ public class JaxbParser {
                 throw new InvalidTraceFragment("Either an input or an output was not named (<name>:<value> syntax) in `"+fragment+"` in file `"+xmlFile+"`");
             }
 
-            retTrace.addFragment(EventParser.extractTimeInstant(fragment), new TraceFragment(new ArrayList<String>(EventParser.extractInputMap(fragment).values()), new ArrayList<String>(EventParser.extractOutputMap(fragment).values())));
+            retTrace.addFragment(EventParser.extractTimeInstant(fragment), new Event(EventParser.extractInputMap(fragment), EventParser.extractOutputMap(fragment)));
 
             currentTime++;
         }
@@ -109,9 +103,9 @@ public class JaxbParser {
             } else if (type.equals("later")) {
                 result = new DeviationAtTime(KeyWord.createLater(), checkParam(param));
             } else if (type.equals("greater")) {
-                result = new DeviationAtTime(KeyWord.createGreater(0), checkParam(param));
+                result = new DeviationAtTime(KeyWord.createGreater("LI"), checkParam(param));
             }  else if (type.equals("smaller")) {
-                result = new DeviationAtTime(KeyWord.createSmaller(0), checkParam(param));
+                result = new DeviationAtTime(KeyWord.createSmaller("LI"), checkParam(param));
             }  else if (type.equals("notavailable")) {
                 result = new NotAvailable();
             }  else {

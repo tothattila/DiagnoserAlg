@@ -25,26 +25,26 @@ public class KeyWord {
         return new KeyWord(KeyWordType.LATER);
     }
 
-    public static KeyWord createSmaller(final int outputIndex) {
-        return new KeyWord(KeyWordType.SMALLER, outputIndex);
+    public static KeyWord createSmaller(final String outputName) {
+        return new KeyWord(KeyWordType.SMALLER, outputName);
     }
 
-    public static KeyWord createGreater(final int outputIndex) {
-       return new KeyWord(KeyWordType.GREATER, outputIndex);
+    public static KeyWord createGreater(final String outputName) {
+       return new KeyWord(KeyWordType.GREATER, outputName);
     }
 
     private KeyWordType type;
 
-    private static final int INVALID_OUTPUT_INDEX = -1;
-    private int outputIndex = INVALID_OUTPUT_INDEX;
+    private static final String INVALID_OUTPUT_NAME = "";
+    private String outputName = INVALID_OUTPUT_NAME;
 
     private KeyWord(final KeyWordType timelyKeyWordType) {
         type = timelyKeyWordType;
     }
 
-    private KeyWord(final KeyWordType qualitaitveKeyWordType, final int outputIndex) {
+    private KeyWord(final KeyWordType qualitaitveKeyWordType, final String outputName) {
         type = qualitaitveKeyWordType;
-        this.outputIndex = outputIndex;
+        this.outputName = outputName;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class KeyWord {
        if (o instanceof KeyWord) {
           KeyWord k = (KeyWord)o;
            if (isQuantitative()) {
-                return (k.type.equals(type) && k.outputIndex == outputIndex);
+                return (k.type.equals(type) && k.outputName.equals(outputName));
            }
            else
            {
@@ -68,17 +68,15 @@ public class KeyWord {
        int prime = 31;
        int result = 1;
        result = prime*result + type.hashCode();
-       result = prime*result + Integer.valueOf(outputIndex).hashCode();
+       result = prime*result + outputName.hashCode();
        return result;
     }
 
     public String toString() {
         String result = type.name();
         if (isQuantitative()) {
-            result += "(" + outputIndex + ")";
+            result += "(" + outputName + ")";
         }
-
-
         return result;
     }
 
