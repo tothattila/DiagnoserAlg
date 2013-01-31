@@ -21,24 +21,52 @@
 
 	<xs:element name="cause">
 		<xs:complexType>
-		   <xs:attribute name="type" type="xs:string"/>
-		   <xs:attribute name="param" type="xs:string"/>
-		</xs:complexType>   
+		<xs:choice minOccurs="0">
+		   <xs:element ref="rootcause"/>
+		   <xs:element ref="ref"/>
+		   <xs:element ref="dev"/>
+		</xs:choice>	
+	    </xs:complexType>
 	</xs:element>
 
 	<xs:element name="deviation"> 
 		<xs:complexType>
-		   <xs:attribute name="type" type="xs:string"/>
-		   <xs:attribute name="param" type="xs:string"/>
-		</xs:complexType>
-			 
+		<xs:choice minOccurs="0">
+		   <xs:element ref="rootcause"/>
+		   <xs:element ref="ref"/>
+		   <xs:element ref="dev"/>
+		</xs:choice>	
+	    </xs:complexType>
 	</xs:element>
 
 	<xs:element name="implication">
 		<xs:complexType>
-		   <xs:attribute name="type" type="xs:string"/>
-		   <xs:attribute name="param" type="xs:string"/>
-		</xs:complexType>
+		<xs:choice minOccurs="0">
+		   <xs:element ref="rootcause"/>
+		   <xs:element ref="ref"/>
+		   <xs:element ref="dev"/>
+		</xs:choice>	
+	    </xs:complexType>
+	</xs:element>
+	
+	<xs:element name="rootcause">
+	   <xs:complexType>
+	       <xs:attribute name="cause" type="xs:string"/>		   
+	   </xs:complexType>
+	</xs:element>
+	
+	<xs:element name="ref">
+	   <xs:complexType>
+	       <xs:attribute name="hazidtable" type="xs:string"/>		   
+		   <xs:attribute name="rowlabel" type="xs:string"/>		   
+	   </xs:complexType>
+	</xs:element>
+	
+	<xs:element name="dev">
+	   <xs:complexType>
+	       <xs:attribute name="type" type="xs:string"/>
+	       <xs:attribute name="event" type="xs:string"/>		   
+	   </xs:complexType>
 	</xs:element>
 
 </xs:schema>

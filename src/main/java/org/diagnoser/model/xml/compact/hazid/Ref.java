@@ -10,6 +10,7 @@ package org.diagnoser.model.xml.compact.hazid;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -23,11 +24,8 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;choice minOccurs="0">
- *         &lt;element ref="{}rootcause"/>
- *         &lt;element ref="{}ref"/>
- *         &lt;element ref="{}dev"/>
- *       &lt;/choice>
+ *       &lt;attribute name="hazidtable" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="rowlabel" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -36,88 +34,61 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "rootcause",
-    "ref",
-    "dev"
-})
-@XmlRootElement(name = "deviation")
-public class Deviation {
+@XmlType(name = "")
+@XmlRootElement(name = "ref")
+public class Ref {
 
-    protected Rootcause rootcause;
-    protected Ref ref;
-    protected Dev dev;
+    @XmlAttribute
+    protected String hazidtable;
+    @XmlAttribute
+    protected String rowlabel;
 
     /**
-     * Gets the value of the rootcause property.
+     * Gets the value of the hazidtable property.
      * 
      * @return
      *     possible object is
-     *     {@link Rootcause }
+     *     {@link String }
      *     
      */
-    public Rootcause getRootcause() {
-        return rootcause;
+    public String getHazidtable() {
+        return hazidtable;
     }
 
     /**
-     * Sets the value of the rootcause property.
+     * Sets the value of the hazidtable property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Rootcause }
+     *     {@link String }
      *     
      */
-    public void setRootcause(Rootcause value) {
-        this.rootcause = value;
+    public void setHazidtable(String value) {
+        this.hazidtable = value;
     }
 
     /**
-     * Gets the value of the ref property.
+     * Gets the value of the rowlabel property.
      * 
      * @return
      *     possible object is
-     *     {@link Ref }
+     *     {@link String }
      *     
      */
-    public Ref getRef() {
-        return ref;
+    public String getRowlabel() {
+        return rowlabel;
     }
 
     /**
-     * Sets the value of the ref property.
+     * Sets the value of the rowlabel property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Ref }
+     *     {@link String }
      *     
      */
-    public void setRef(Ref value) {
-        this.ref = value;
-    }
-
-    /**
-     * Gets the value of the dev property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Dev }
-     *     
-     */
-    public Dev getDev() {
-        return dev;
-    }
-
-    /**
-     * Sets the value of the dev property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Dev }
-     *     
-     */
-    public void setDev(Dev value) {
-        this.dev = value;
+    public void setRowlabel(String value) {
+        this.rowlabel = value;
     }
 
 }
