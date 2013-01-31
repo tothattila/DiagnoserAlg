@@ -1,2 +1,0 @@
- multiple output handling (deviation relates to a SPECIFIC output, there can be multiple outputs)
- when starting to search for deviation pairs, need to STEP BACK if not enough deviations were found

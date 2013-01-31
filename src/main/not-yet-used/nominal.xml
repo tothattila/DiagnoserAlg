@@ -1,9 +1,0 @@
-<!-- compact XML description of trace (1; 0;1;H);(2; 0;1;N);(3; 0;1;L);(4; 0;1;0);(5; 0;1;0) -->
-<trace>
-	<name>Tank empty procedure</name>
-	<event>1;0,1;HIG</event>
-	<event>2;0,1;NRM</event>
-	<event>3;0,1;LOW</event>
-	<event>4;0,1;NO</event>
-	<event>5;0,1;NO</event>
-</trace>
