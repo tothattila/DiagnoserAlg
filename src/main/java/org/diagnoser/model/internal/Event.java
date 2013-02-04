@@ -5,6 +5,7 @@ import org.diagnoser.model.internal.exception.InvalidOutputSize;
 import sun.applet.resources.MsgAppletViewer_sv;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,14 @@ public class Event {
         this.inputs = inputs;
         this.outputs = outputs;
 
+    }
+
+    public Map<String,String> getInputs() {
+        return new HashMap<String,String>(inputs);
+    }
+
+    public Map<String,String> getOutputs() {
+        return new HashMap<String,String>(outputs);
     }
 
     public Event(final String traceFragmentWithTime) {

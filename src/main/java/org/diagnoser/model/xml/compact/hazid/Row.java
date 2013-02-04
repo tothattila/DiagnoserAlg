@@ -13,6 +13,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -27,9 +28,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{}row" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element ref="{}cell" maxOccurs="3" minOccurs="3"/>
  *       &lt;/sequence>
- *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="label" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -39,66 +40,67 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "row"
+    "cell"
 })
-@XmlRootElement(name = "procedurehazidtable")
-public class Procedurehazidtable {
+@XmlRootElement(name = "row")
+public class Row {
 
-    protected List<Row> row;
+    @XmlElement(required = true)
+    protected List<Cell> cell;
     @XmlAttribute
-    protected String id;
+    protected String label;
 
     /**
-     * Gets the value of the row property.
+     * Gets the value of the cell property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the row property.
+     * This is why there is not a <CODE>set</CODE> method for the cell property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getRow().add(newItem);
+     *    getCell().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Row }
+     * {@link Cell }
      * 
      * 
      */
-    public List<Row> getRow() {
-        if (row == null) {
-            row = new ArrayList<Row>();
+    public List<Cell> getCell() {
+        if (cell == null) {
+            cell = new ArrayList<Cell>();
         }
-        return this.row;
+        return this.cell;
     }
 
     /**
-     * Gets the value of the id property.
+     * Gets the value of the label property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getId() {
-        return id;
+    public String getLabel() {
+        return label;
     }
 
     /**
-     * Sets the value of the id property.
+     * Sets the value of the label property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setId(String value) {
-        this.id = value;
+    public void setLabel(String value) {
+        this.label = value;
     }
 
 }

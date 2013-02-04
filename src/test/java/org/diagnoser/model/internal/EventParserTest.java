@@ -1,5 +1,6 @@
 package org.diagnoser.model.internal;
 
+import junit.framework.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -77,6 +78,11 @@ public class EventParserTest {
     @Test
     public void detectNameLessOutput() {
         assertFalse(EventParser.checkNaming("1;INP1:1;V1OUT:L,NO"));
+    }
+
+    @Test
+    public void outputCounter() {
+       assertEquals(3,EventParser.countOutputSize("1;INP1:1;V1OUT:L,X:NO,Y:Z"));
     }
 
 

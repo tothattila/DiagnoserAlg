@@ -72,6 +72,14 @@ public class KeyWord {
        return result;
     }
 
+    public KeyWord clone() {
+       if (isQuantitative()) {
+           return new KeyWord(type,outputName);
+       } else {
+           return new KeyWord(type);
+       }
+    }
+
     public String toString() {
         String result = type.name();
         if (isQuantitative()) {

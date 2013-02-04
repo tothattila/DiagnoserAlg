@@ -9,7 +9,7 @@ import org.diagnoser.model.internal.exception.AlreadyPresentException;
 import org.diagnoser.model.internal.exception.CorruptTraceException;
 import org.diagnoser.model.internal.exception.InvalidTraceFragment;
 import org.diagnoser.model.xml.compact.hazid.Procedurehazidtable;
-import org.diagnoser.model.xml.compact.hazid.Tablerow;
+import org.diagnoser.model.xml.compact.hazid.Row;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -44,7 +44,7 @@ public class JaxbParser {
 
     private Trace createInternalTraceFromCompactXmlTrace(String xmlFile, org.diagnoser.model.xml.compact.trace.Trace xmlTrace) throws CorruptTraceException, AlreadyPresentException, InvalidOutput, InvalidTraceFragment {
         int currentTime = 1;
-        Trace retTrace = new Trace(xmlTrace.getName());
+        Trace retTrace = new Trace(xmlTrace.getId());
 
         for (String fragment:xmlTrace.getEvent()) {
 
@@ -77,12 +77,12 @@ public class JaxbParser {
 
         final HazidTable table = new HazidTable();
 
-        for (Tablerow row: hazid.getTablerow()) {
-           final HazidElement cause = createElementFromTypeAndParam(row.getCause().getType(),row.getCause().getParam());
-           final HazidElement deviation = createElementFromTypeAndParam(row.getDeviation().getType(),row.getDeviation().getParam());
-           final HazidElement implication = createElementFromTypeAndParam(row.getImplication().getType(),row.getImplication().getParam());
+        for (Row row: hazid.getRow()) {
+           /*final HazidElement cause = createElementFromTypeAndParam(row.getCause());
+           final HazidElement deviation = createElementFromTypeAndParam(row.getDeviation());
+           final HazidElement implication = createElementFromTypeAndParam(row.getImplication());*/
 
-           table.addRow(cause, deviation, implication);
+           // table.addRow(cause, deviation, implication);
         }
 
         return table;

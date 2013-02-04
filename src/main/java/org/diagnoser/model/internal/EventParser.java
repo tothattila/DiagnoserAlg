@@ -47,9 +47,6 @@ public class EventParser {
     }
 
     public static boolean checkNaming(final String eventAsString) {
-       boolean noColonInNonEmptyInput = eventAsString.split(";")[INPUT_PART].length()>0 && !eventAsString.split(";")[INPUT_PART].contains(":");
-       boolean noColonInNonEmptyOutput = eventAsString.split(";")[OUTPUT_PART].length()>0 && !eventAsString.split(";")[OUTPUT_PART].contains(":");
-
        return checkEventPart(eventAsString.split(";")[INPUT_PART]) && checkEventPart(eventAsString.split(";")[OUTPUT_PART]);
     }
 
@@ -73,4 +70,7 @@ public class EventParser {
         return true;
     }
 
+    public static int countOutputSize(String eventPart) {
+        return extractOutputMap(eventPart).size();
+    }
 }

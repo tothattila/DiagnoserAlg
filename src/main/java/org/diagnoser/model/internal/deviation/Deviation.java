@@ -4,6 +4,8 @@ import org.diagnoser.model.internal.Event;
 import org.diagnoser.model.internal.HazidElement;
 import org.diagnoser.model.internal.KeyWord;
 
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: eatttth
@@ -20,6 +22,18 @@ public class Deviation implements HazidElement {
     public Deviation(final KeyWord deviationType, final Event originalFragment) {
        this.keyWord = deviationType;
        this.fragment = originalFragment;
+    }
+
+    public KeyWord getDeviationType() {
+        return keyWord.clone();
+    }
+
+    public Map<String,String> getInputs() {
+        return fragment.getInputs();
+    }
+
+    public Map<String,String> getOutputs() {
+        return fragment.getOutputs();
     }
 
     public String toString() {
