@@ -11,18 +11,16 @@
 	</xs:element>
 
 	<xs:element name="row">
-		<xs:complexType>
-		  <xs:sequence>
-			<xs:element ref="cell" minOccurs="3" maxOccurs="3" />
-		  </xs:sequence>
-		  <xs:attribute name="label" type="xs:string" />
+	    <xs:complexType>
+		 <xs:sequence>
+		  <xs:element name="cause" type="xs:string" minOccurs="1" maxOccurs="1">
+		  </xs:element>
+		  <xs:element name="deviation" type="xs:string" minOccurs="1" maxOccurs="1">
+		  </xs:element>
+		  <xs:element name="implication" type="xs:string" minOccurs="1" maxOccurs="1">
+		  </xs:element>
+		 </xs:sequence>
+		 <xs:attribute name="label" type="xs:string" />
 		</xs:complexType>
 	</xs:element>  
-
-	<xs:element name="cell">
-		<xs:complexType>
-		   <xs:attribute name="column" type="xs:string"/>
-		</xs:complexType>
-	</xs:element>
-	
 </xs:schema>

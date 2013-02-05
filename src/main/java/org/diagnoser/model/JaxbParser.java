@@ -4,10 +4,8 @@ import org.diagnoser.model.exception.InvalidFormatException;
 import org.diagnoser.model.exception.UnsupportedHazidType;
 import org.diagnoser.model.internal.*;
 import org.diagnoser.model.internal.deviation.DeviationAtTime;
-import org.diagnoser.model.internal.exception.InvalidOutput;
-import org.diagnoser.model.internal.exception.AlreadyPresentException;
-import org.diagnoser.model.internal.exception.CorruptTraceException;
-import org.diagnoser.model.internal.exception.InvalidTraceFragment;
+import org.diagnoser.model.internal.exception.*;
+import org.diagnoser.model.xml.compact.hazid.Cell;
 import org.diagnoser.model.xml.compact.hazid.Procedurehazidtable;
 import org.diagnoser.model.xml.compact.hazid.Row;
 
@@ -26,7 +24,7 @@ import java.util.ArrayList;
  */
 public class JaxbParser {
 
-    public HazidTable parseHazidXml(final String xmlFile) throws JAXBException, UnsupportedHazidType, InvalidFormatException, InvalidTraceFragment {
+    public HazidTable parseHazidXml(final String xmlFile) throws JAXBException, InvalidCommand {
         final JAXBContext context = JAXBContext
                 .newInstance("org.diagnoser.model.xml.compact.hazid");
         final Unmarshaller unMarshaller = context.createUnmarshaller();
@@ -73,52 +71,22 @@ public class JaxbParser {
         return retTrace;
     }
 
-    private HazidTable createHazidTableFromCompactHazid(final String xmFile, final Procedurehazidtable hazid) throws UnsupportedHazidType, InvalidFormatException, InvalidTraceFragment {
+    private HazidTable createHazidTableFromCompactHazid(final String xmFile, final Procedurehazidtable hazid) throws InvalidCommand {
 
         final HazidTable table = new HazidTable();
 
         for (Row row: hazid.getRow()) {
-           /*final HazidElement cause = createElementFromTypeAndParam(row.getCause());
-           final HazidElement deviation = createElementFromTypeAndParam(row.getDeviation());
-           final HazidElement implication = createElementFromTypeAndParam(row.getImplication());*/
+           final HazidElement cause = CellParser.parse(row.getCause());
+           final HazidElement deviation = CellParser.parse(row.getDeviation());
+           final HazidElement implication = CellParser.parse(row.getImplication());
 
-           // table.addRow(cause, deviation, implication);
+           table.addRow(cause, deviation, implication);
         }
 
         return table;
 
     }
 
-    private HazidElement createElementFromTypeAndParam(String type, String param) throws UnsupportedHazidType, InvalidFormatException, InvalidTraceFragment {
-
-        final HazidElement result;
-
-        try {
-            if (type.equals("rootcause")) {
-                result = new RootCause(param);
-            } else if (type.equals("never-happened")) {
-                result = new DeviationAtTime(KeyWord.createNeverHappened(), checkParam(param));
-            } else if (type.equals("earlier")) {
-                result = new DeviationAtTime(KeyWord.createEarlier(), checkParam(param));
-            } else if (type.equals("later")) {
-                result = new DeviationAtTime(KeyWord.createLater(), checkParam(param));
-            } else if (type.equals("greater")) {
-                result = new DeviationAtTime(KeyWord.createGreater("LI"), checkParam(param));
-            }  else if (type.equals("smaller")) {
-                result = new DeviationAtTime(KeyWord.createSmaller("LI"), checkParam(param));
-            }  else if (type.equals("notavailable")) {
-                result = new NotAvailable();
-            }  else {
-                throw new UnsupportedHazidType("Type `" + type + "` not supported.");
-            }
-            }
-        catch (ArrayIndexOutOfBoundsException exc) {
-            exc.printStackTrace();
-            throw new InvalidFormatException("Invalid param format found in HAZID XML. Type: `"+type+"` Param: `"+param+"`");
-        }
-
-        return result;
-    }
 
     private String checkParam(String param) throws InvalidTraceFragment {
         if (param.split(";").length != 3) {

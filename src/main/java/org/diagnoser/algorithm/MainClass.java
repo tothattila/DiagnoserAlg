@@ -73,12 +73,10 @@ public class MainClass {
             LogPrinter.printAndExit("Exception happened during parsing. ", e);
         } catch (InvalidOutput e) {
             LogPrinter.printAndExit("Exception happened during parsing. ", e);
-        } catch (UnsupportedHazidType unsupportedHazidType) {
-            LogPrinter.printAndExit("Exception happened during parsing. ", unsupportedHazidType);
-        } catch (InvalidFormatException e) {
-            LogPrinter.printAndExit("Exception happened during parsing. ", e);
-        } catch (InvalidTraceFragment invalidTraceFragment) {
+        }  catch (InvalidTraceFragment invalidTraceFragment) {
             LogPrinter.printAndExit(" An invalid tarce fragment found.", invalidTraceFragment);
+        } catch (InvalidCommand invalidCommand) {
+            LogPrinter.printAndExit("Commadn problem ", invalidCommand);  //To change body of catch statement use File | Settings | File Templates.
         }
 
         LogPrinter.printCaption("   EXECUTING DIAGNOSIS ALGORITHM   ");

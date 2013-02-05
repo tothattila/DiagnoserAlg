@@ -13,7 +13,7 @@ import java.security.InvalidParameterException;
  * To change this template use File | Settings | File Templates.
  */
 public class CellParser {
-    public HazidElement parse(String cell) throws InvalidCommand {
+    public static HazidElement parse(String cell) throws InvalidCommand {
 
         String command = cell.substring(0,cell.indexOf(";"));
         String rest = cell.substring(command.length()+1,cell.length());
@@ -40,7 +40,7 @@ public class CellParser {
 
     }
 
-    private void checkIfOutputArrayIsSingle(String part) throws InvalidCommand {
+    private static void checkIfOutputArrayIsSingle(String part) throws InvalidCommand {
         if (EventParser.countOutputSize(part)!=1) {
             throw new InvalidCommand("Invalid output size in quantitative deviation, should be 1, was " + EventParser.countOutputSize(part));
         }
