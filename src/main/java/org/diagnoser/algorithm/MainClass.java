@@ -3,6 +3,7 @@ package org.diagnoser.algorithm;
 import org.diagnoser.algorithm.exception.TooFewDeviations;
 import org.diagnoser.model.JaxbParser;
 import org.diagnoser.model.exception.InvalidFormatException;
+import org.diagnoser.model.exception.InvalidHazid;
 import org.diagnoser.model.exception.UnsupportedHazidType;
 import org.diagnoser.model.internal.*;
 import org.diagnoser.model.internal.exception.*;
@@ -75,8 +76,8 @@ public class MainClass {
             LogPrinter.printAndExit("Exception happened during parsing. ", e);
         }  catch (InvalidTraceFragment invalidTraceFragment) {
             LogPrinter.printAndExit(" An invalid tarce fragment found.", invalidTraceFragment);
-        } catch (InvalidCommand invalidCommand) {
-            LogPrinter.printAndExit("Commadn problem ", invalidCommand);  //To change body of catch statement use File | Settings | File Templates.
+        } catch (InvalidHazid invalidCommand) {
+            LogPrinter.printAndExit("Hazid parsing problem ", invalidCommand);  //To change body of catch statement use File | Settings | File Templates.
         }
 
         LogPrinter.printCaption("   EXECUTING DIAGNOSIS ALGORITHM   ");

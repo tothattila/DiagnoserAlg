@@ -1,11 +1,8 @@
 package org.diagnoser.model;
 
-import org.diagnoser.model.exception.InvalidFormatException;
-import org.diagnoser.model.exception.UnsupportedHazidType;
+import org.diagnoser.model.exception.InvalidHazid;
 import org.diagnoser.model.internal.*;
-import org.diagnoser.model.internal.deviation.DeviationAtTime;
 import org.diagnoser.model.internal.exception.*;
-import org.diagnoser.model.xml.compact.hazid.Cell;
 import org.diagnoser.model.xml.compact.hazid.Procedurehazidtable;
 import org.diagnoser.model.xml.compact.hazid.Row;
 
@@ -13,7 +10,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,12 +20,11 @@ import java.util.ArrayList;
  */
 public class JaxbParser {
 
-    public HazidTable parseHazidXml(final String xmlFile) throws JAXBException, InvalidCommand {
+    public HazidTable parseHazidXml(final String xmlFile) throws JAXBException, InvalidHazid {
         final JAXBContext context = JAXBContext
                 .newInstance("org.diagnoser.model.xml.compact.hazid");
         final Unmarshaller unMarshaller = context.createUnmarshaller();
         return createHazidTableFromCompactHazid(xmlFile, (Procedurehazidtable) unMarshaller.unmarshal(new File(xmlFile)));
-
     }
 
     public Trace parseTraceXml(final String xmlFile) throws JAXBException, CorruptTraceException, AlreadyPresentException, InvalidOutput, InvalidTraceFragment {
@@ -71,34 +66,25 @@ public class JaxbParser {
         return retTrace;
     }
 
-    private HazidTable createHazidTableFromCompactHazid(final String xmFile, final Procedurehazidtable hazid) throws InvalidCommand {
+    private HazidTable createHazidTableFromCompactHazid(final String xmlFile, final Procedurehazidtable hazid) throws InvalidHazid {
 
         final HazidTable table = new HazidTable();
 
         for (Row row: hazid.getRow()) {
-           final HazidElement cause = CellParser.parse(row.getCause());
-           final HazidElement deviation = CellParser.parse(row.getDeviation());
-           final HazidElement implication = CellParser.parse(row.getImplication());
+           try {
+              final HazidElement cause = CellParser.parse(row.getCause());
+              final HazidElement deviation = CellParser.parse(row.getDeviation());
+              final HazidElement implication = CellParser.parse(row.getImplication());
+              table.addRow(cause, deviation, implication);
+           }
+           catch (InvalidCommand exc) {
+               throw new InvalidHazid("Invalid command found in XML file: `"+xmlFile+ "`: "+ exc.toString(), "\nCause:\n"+row.getCause() +"\nDeviation:\n"+row.getDeviation() + "\nImplication:\n"+row.getImplication());
+           }
 
-           table.addRow(cause, deviation, implication);
         }
 
         return table;
 
-    }
-
-
-    private String checkParam(String param) throws InvalidTraceFragment {
-        if (param.split(";").length != 3) {
-            throw new InvalidTraceFragment("Not correct trace fragment `" + param + "`");
-        }
-        else if (!EventParser.checkNaming(param))  {
-            throw new InvalidTraceFragment("Please name inputs and outputs (<name>:<value) in param `" + param + "`");
-        } else if (!EventParser.checkOutputValues(param)) {
-            throw new InvalidTraceFragment("Please use valid qualitative values for outputs in param `" + param + "`");
-        }
-
-        return param;
     }
 
 }
