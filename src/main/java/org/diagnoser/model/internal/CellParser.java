@@ -15,8 +15,8 @@ import java.security.InvalidParameterException;
 public class CellParser {
     public static HazidElement parse(String cell) throws InvalidCommand {
 
-        String command = cell.substring(0,cell.indexOf(";")).toUpperCase();
-        String rest = cell.substring(command.length()+1,cell.length());
+        String command = (cell.indexOf(";") != -1?cell.substring(0,cell.indexOf(";")).toUpperCase() : cell);
+        String rest = (cell.length() > command.length() ? cell.substring(command.length()+1,cell.length()) : "");
 
         if (command.equals("REF")) {
             return new HazidRef(rest.split(";")[0],rest.split(";")[1]);
@@ -34,6 +34,8 @@ public class CellParser {
         } else if (command.equals("SMALLER")) {
             checkIfOutputArrayIsSingle(rest);
             return new DeviationAtTime(KeyWord.createSmaller(EventParser.extractOutputMap(rest).keySet().iterator().next()),rest);
+        } else if (command.equals("NOTAVAILABLE")) {
+            return new NotAvailable();
         } else {
             throw new InvalidCommand(command);
         }

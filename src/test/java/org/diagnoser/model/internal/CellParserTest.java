@@ -126,6 +126,12 @@ public class CellParserTest {
     }
 
     @Test
+    public void parseNotAvailable() throws InvalidCommand {
+        HazidElement result = testParser.parse("NOTAVAILABLE");
+        assertTrue(result instanceof NotAvailable);
+    }
+
+    @Test
     public void invalidCommand() {
         try {
            testParser.parse("INVALID-COMMAND;PARAMETER");
