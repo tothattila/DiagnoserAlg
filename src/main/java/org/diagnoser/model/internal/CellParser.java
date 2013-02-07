@@ -15,7 +15,7 @@ import java.security.InvalidParameterException;
 public class CellParser {
     public static HazidElement parse(String cell) throws InvalidCommand {
 
-        String command = cell.substring(0,cell.indexOf(";"));
+        String command = cell.substring(0,cell.indexOf(";")).toUpperCase();
         String rest = cell.substring(command.length()+1,cell.length());
 
         if (command.equals("REF")) {

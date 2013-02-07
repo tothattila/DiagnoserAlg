@@ -136,4 +136,12 @@ public class CellParserTest {
         }
     }
 
+    @Test
+    public void parseMixedCaseCommand() throws Exception {
+       HazidElement result = testParser.parse("rEf;NEXTHAZIDTABLE;SPECIFIC-ROW-3");
+       assertTrue(result instanceof HazidRef);
+       assertEquals(((HazidRef) result).getTargetHazidTableId(), "NEXTHAZIDTABLE");
+       assertEquals(((HazidRef)result).getTargetRowLabel(),"SPECIFIC-ROW-3");
+    }
+
 }
