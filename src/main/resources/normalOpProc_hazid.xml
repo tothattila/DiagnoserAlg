@@ -1,105 +1,105 @@
 <procedurehazidtable>
 
-	<tablerow>
-		<cause type="rootcause" param="TANK-LEAK(1)" />
-		<deviation type="never-happened" param="2;VA1:1,VA2:0;LI:LOW" />
-		<implication type="never-happened" param="3;VA1:1,VA2:0;LI:NRM" />	
-	</tablerow>
-	<tablerow>
-		<cause type="never-happened" param="2;VA1:1,VA2:0;LI:LOW" />
-		<deviation type="never-happened" param="3;VA1:1,VA2:0;LI:NRM" />
-		<implication type="never-happened" param="4;VA1:1,VA2:1;LI:NRM" />	
-	</tablerow>
-	<tablerow>
-		<cause type="rootcause" param="TANK-LEAK(1)" /> 
-		<deviation type="smaller" param="2;VA1:1,VA2:0;LI:LOW" /> 
-		<implication type="smaller" param="3;VA1:1,VA2:0;LI:NRM" />
-	</tablerow>
-	<tablerow>
-		<cause type="smaller" param="2;VA1:1,VA2:0;LI:LOW" /> 
-		<deviation type="smaller" param="3;VA1:1,VA2:0;LI:NRM" /> 
-		<implication type="smaller" param="4;VA1:1,VA2:1;LI:NRM" />
-	</tablerow>
-	<tablerow>
-		<cause type="rootcause" param="POS-BIAS(1)" /> 
-		<deviation type="greater" param="1;VA1:1,VA2:0;LI:NO" /> 
-		<implication type="greater" param="2;VA1:1,VA2:0;LI:LOW" />
-	</tablerow>
-	<tablerow>
-		<cause type="greater" param="1;VA1:1,VA2:0;LI:NO" /> 
-		<deviation type="greater" param="2;VA1:1,VA2:0;LI:LOW" /> 
-		<implication type="greater" param="3;VA1:1,VA2:0;LI:NRM" />
-	</tablerow>
-	<tablerow>
-		<cause type="greater" param="2;VA1:1,VA2:0;LI:LOW" /> 
-		<deviation type="greater" param="3;VA1:1,VA2:0;LI:NRM" /> 
-		<implication type="never-happened" param="4;VA1:1,VA2:1;LI:NRM" />
-	</tablerow>
-	<tablerow>
-		<cause type="rootcause" param="POS-BIAS(1)" /> 
-		<deviation type="never-happened" param="1;VA1:1,VA2:0;LI:NO" /> 
-		<implication type="earlier" param="2;VA1:1,VA2:0;LI:LOW" />
-	</tablerow>
-	<tablerow>
-		<cause type="never-happened" param="1;VA1:1,VA2:0;LI:NO" /> 
-		<deviation type="earlier" param="2;VA1:1,VA2:0;LI:LOW" /> 
-		<implication type="earlier" param="3;VA1:1,VA2:0;LI:NRM" />
-	</tablerow>
-	<tablerow>
-		<cause type="earlier" param="2;VA1:1,VA2:0;LI:LOW" /> 
-		<deviation type="earlier" param="3;VA1:1,VA2:0;LI:NRM" /> 
-		<implication type="never-happened" param="4;VA1:1,VA2:1;LI:NRM" />
-	</tablerow>
-	<tablerow>
-		<cause type="rootcause" param="NEG-BIAS(1)" />" />
-		<deviation type="smaller" param="1;VA1:1,VA2:0;LI:NO" /> 
-		<implication type="smaller" param="2;VA1:1,VA2:0;LI:LOW" />
-	</tablerow>
-	<tablerow>
-		<cause type="smaller" param="1;VA1:1,VA2:0;LI:NO" /> 
-		<deviation type="smaller" param="2;VA1:1,VA2:0;LI:LOW" /> 
-		<implication type="smaller" param="3;VA1:1,VA2:0;LI:NRM" />
-	</tablerow>
-	<tablerow>
-		<cause type="smaller" param="2;VA1:1,VA2:0;LI:LOW" /> 
-		<deviation type="smaller" param="3;VA1:1,VA2:0;LI:NRM" /> 
-		<implication type="smaller" param="4;VA1:1,VA2:1;LI:NRM" />
-	</tablerow>
-	<tablerow>
-		<cause type="rootcause" param="NEG-BIAS(1)" />
-		<deviation type="later" param="1;VA1:1,VA2:0;LI:NO" /> 
-		<implication type="later" param="2;VA1:1,VA2:0;LI:LOW" />
-	</tablerow>
-	<tablerow>
-		<cause type="later" param="1;VA1:1,VA2:0;LI:NO" /> 
-		<deviation type="later" param="2;VA1:1,VA2:0;LI:LOW" /> 
-		<implication type="never-happened" param="3;VA1:1,VA2:0;LI:NRM" />
-	</tablerow>
-	<tablerow>
-		<cause type="later" param="2;VA1:1,VA2:0;LI:LOW" /> 
-		<deviation type="never-happened" param="3;VA1:1,VA2:0;LI:NRM" /> 
-		<implication type="never-happened" param="4;VA1:1,VA2:1;LI:NRM" />
-	</tablerow>
-	<tablerow>
-		<cause type="rootcause" param="VA1-CONGESTION(1)" />
-		<deviation type="smaller" param="2;VA1:1,VA2:0;LI:LOW" />
-		<implication type="smaller" param="3;VA1:1,VA2:0;LI:NRM" />
-	</tablerow>
-	<tablerow>
-		<cause type="smaller" param="2;VA1:1,VA2:0;LI:LOW" /> 
-		<deviation type="smaller" param="3;VA1:1,VA2:0;LI:NRM" /> 
-		<implication type="smaller" param="4;VA1:1,VA2:1;LI:NRM" />
-	</tablerow>
-	<tablerow>
-		<cause type="rootcause" param="VA2-CONGESTION(1)" />
-		<deviation type="never-happened" param="4;VA1:1,VA2:1;LI:NRM" /> 
-		<implication type="notavailable" />
-	</tablerow>
-	<tablerow>
-		<cause type="rootcause" param="VA2-CONGESTION(1)" />
-		<deviation type="greater" param="4;VA1:1,VA2:1;LI:NRM" /> 
-		<implication type="notavailable" />
-	</tablerow>
+	<row>
+		<cause>rootcause;TANK-LEAK(1)</cause>
+		<deviation>never-happened;2;VA1:1,VA2:0;LI:LOW</deviation>
+		<implication>never-happened;3;VA1:1,VA2:0;LI:NRM</implication>	
+	</row>
+	<row>
+		<cause>never-happened;2;VA1:1,VA2:0;LI:LOW</cause>
+		<deviation>never-happened;3;VA1:1,VA2:0;LI:NRM</deviation>
+		<implication>never-happened;4;VA1:1,VA2:1;LI:NRM</implication>	
+	</row>
+	<row>
+		<cause>rootcause;TANK-LEAK(1)</cause>
+		<deviation>smaller;2;VA1:1,VA2:0;LI:LOW</deviation>
+		<implication>smaller;3;VA1:1,VA2:0;LI:NRM</implication>
+	</row>
+	<row>
+		<cause>smaller;2;VA1:1,VA2:0;LI:LOW</cause> 
+		<deviation>smaller;3;VA1:1,VA2:0;LI:NRM</deviation>
+		<implication>smaller;4;VA1:1,VA2:1;LI:NRM</implication>
+	</row>
+	<row>
+		<cause>rootcause;POS-BIAS(1)</cause>
+		<deviation>greater;1;VA1:1,VA2:0;LI:NO</deviation>
+		<implication>greater;2;VA1:1,VA2:0;LI:LOW</implication>
+	</row>
+	<row>
+		<cause>greater;1;VA1:1,VA2:0;LI:NO</cause> 
+		<deviation>greater;2;VA1:1,VA2:0;LI:LOW</deviation>
+		<implication>greater;3;VA1:1,VA2:0;LI:NRM</implication>
+	</row>
+	<row>
+		<cause>greater;2;VA1:1,VA2:0;LI:LOW</cause>
+		<deviation>greater;3;VA1:1,VA2:0;LI:NRM</deviation>
+		<implication>never-happened;4;VA1:1,VA2:1;LI:NRM</implication>
+	</row>
+	<row>
+		<cause>rootcause;POS-BIAS(1)</cause>
+		<deviation>never-happened;1;VA1:1,VA2:0;LI:NO</deviation> 
+		<implication>earlier;2;VA1:1,VA2:0;LI:LOW</implication>
+	</row>
+	<row>
+		<cause>never-happened;1;VA1:1,VA2:0;LI:NO</cause> 
+		<deviation>earlier;2;VA1:1,VA2:0;LI:LOW</deviation> 
+		<implication>earlier;3;VA1:1,VA2:0;LI:NRM</implication>
+	</row>
+	<row>
+		<cause>earlier;2;VA1:1,VA2:0;LI:LOW</cause>
+		<deviation>earlier;3;VA1:1,VA2:0;LI:NRM</deviation>
+		<implication>never-happened;4;VA1:1,VA2:1;LI:NRM</implication>
+	</row>
+	<row>
+		<cause>rootcause;NEG-BIAS(1)</cause>
+		<deviation>smaller;1;VA1:1,VA2:0;LI:NO</deviation> 
+		<implication>smaller;2;VA1:1,VA2:0;LI:LOW</implication>
+	</row>
+	<row>
+		<cause>smaller;1;VA1:1,VA2:0;LI:NO</cause> 
+		<deviation>smaller;2;VA1:1,VA2:0;LI:LOW</deviation> 
+		<implication>smaller;3;VA1:1,VA2:0;LI:NRM</implication>
+	</row>
+	<row>
+		<cause>smaller;2;VA1:1,VA2:0;LI:LOW</cause>
+		<deviation>smaller;3;VA1:1,VA2:0;LI:NRM</deviation> 
+		<implication>smaller;4;VA1:1,VA2:1;LI:NRM</implication>
+	</row>
+	<row>
+		<cause>rootcause;NEG-BIAS(1)</cause>
+		<deviation>later;1;VA1:1,VA2:0;LI:NO</deviation> 
+		<implication>later;2;VA1:1,VA2:0;LI:LOW</implication>
+	</row>
+	<row>
+		<cause>later;1;VA1:1,VA2:0;LI:NO</cause> 
+		<deviation>later;2;VA1:1,VA2:0;LI:LOW</deviation>
+		<implication>never-happened;3;VA1:1,VA2:0;LI:NRM</implication>
+	</row>
+	<row>
+		<cause>later;2;VA1:1,VA2:0;LI:LOW</cause>
+		<deviation>never-happened;3;VA1:1,VA2:0;LI:NRM</deviation> 
+		<implication>never-happened;4;VA1:1,VA2:1;LI:NRM</implication>
+	</row>
+	<row>
+		<cause>rootcause;VA1-CONGESTION(1)</cause>
+		<deviation>smaller;2;VA1:1,VA2:0;LI:LOW</deviation>
+		<implication>smaller;3;VA1:1,VA2:0;LI:NRM</implication>
+	</row>
+	<row>
+		<cause>smaller;2;VA1:1,VA2:0;LI:LOW</cause>
+		<deviation>smaller;3;VA1:1,VA2:0;LI:NRM</deviation> 
+		<implication>smaller;4;VA1:1,VA2:1;LI:NRM</implication>
+	</row>
+	<row>
+		<cause>rootcause;VA2-CONGESTION(1)</cause>
+		<deviation>never-happened;4;VA1:1,VA2:1;LI:NRM</deviation> 
+		<implication>notavailable</implication>
+	</row>
+	<row>
+		<cause>rootcause;VA2-CONGESTION(1)</cause>
+		<deviation>greater;4;VA1:1,VA2:1;LI:NRM</deviation> 
+		<implication>notavailable</implication>
+	</row>
 	
 </procedurehazidtable>
 
