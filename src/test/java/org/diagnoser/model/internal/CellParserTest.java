@@ -103,7 +103,7 @@ public class CellParserTest {
 
     @Test
     public void parseNeverHappenedDeviationWithInputsAndOutputs() throws InvalidCommand {
-        HazidElement result = testParser.parse("NEVERHAPPENED;3;INP-NH:1,INP-NH2:2;O:N,D:L");
+        HazidElement result = testParser.parse("NEVER-HAPPENED;3;INP-NH:1,INP-NH2:2;O:N,D:L");
         assertTrue(result instanceof DeviationAtTime);
         DeviationAtTime deviation = (DeviationAtTime)result;
         assertEquals(deviation.getDeviationType(), KeyWord.createNeverHappened());

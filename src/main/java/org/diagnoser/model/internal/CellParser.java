@@ -26,7 +26,7 @@ public class CellParser {
             return new DeviationAtTime(KeyWord.createEarlier(),rest);
         } else if (command.equals("LATER")) {
             return new DeviationAtTime(KeyWord.createLater(),rest);
-        } else if (command.equals("NEVERHAPPENED")) {
+        } else if (command.equals("NEVER-HAPPENED")) {
             return new DeviationAtTime(KeyWord.createNeverHappened(),rest);
         } else if (command.equals("GREATER")) {
             checkIfOutputArrayIsSingle(rest);
