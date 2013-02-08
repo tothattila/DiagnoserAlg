@@ -19,7 +19,11 @@ public class CellParser {
         String rest = (cell.length() > command.length() ? cell.substring(command.length()+1,cell.length()) : "");
 
         if (command.equals("REF")) {
-            return new HazidRef(rest.split(";")[0],rest.split(";")[1]);
+            if (rest.split(";").length < 1) {
+                throw new InvalidCommand("Too few parameters for REF command");
+            } else {
+              return new HazidRef(rest.split(";")[0],rest.split(";")[1]);
+            }
         } else if (command.equals("ROOTCAUSE")) {
             return new RootCause(rest);
         } else if (command.equals("EARLIER")) {

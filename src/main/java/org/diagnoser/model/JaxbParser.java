@@ -1,8 +1,10 @@
 package org.diagnoser.model;
 
+import org.diagnoser.algorithm.LogPrinter;
 import org.diagnoser.model.exception.InvalidHazid;
 import org.diagnoser.model.internal.*;
 import org.diagnoser.model.internal.exception.*;
+import org.diagnoser.model.xml.compact.DirectoryLister;
 import org.diagnoser.model.xml.compact.hazid.Procedurehazidtable;
 import org.diagnoser.model.xml.compact.hazid.Row;
 
@@ -10,6 +12,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,6 +24,29 @@ import java.io.File;
  * To change this template use File | Settings | File Templates.
  */
 public class JaxbParser {
+
+    public Map<String,HazidTable> parseDir(final String dir) throws JAXBException, InvalidHazid {
+
+        List<String> xmlFiles = new DirectoryLister().listAllXmlsInDirectory(dir);
+        LogPrinter.printCaption("Beginning to parse `" + xmlFiles.size() + "` number of files from given directory `" + dir + "`");
+        Map<String,HazidTable> result = new HashMap<String, HazidTable>();
+
+        for (String s:xmlFiles) {
+            LogPrinter.printMessage("Parsing file:"+s+"...");
+            HazidTable simpleTable = parseHazidXml(s);
+            String newId = returnOrGenerateUniqueId(simpleTable.getId(), result.size());
+            result.put(newId, simpleTable);
+            LogPrinter.printMessage("...HAZID table " + newId + " loaded");
+
+
+        }
+
+        return result;
+    }
+
+    private String returnOrGenerateUniqueId(String id, int size) {
+        return (id==null?"HAZID-"+size : id);
+    }
 
     public HazidTable parseHazidXml(final String xmlFile) throws JAXBException, InvalidHazid {
         final JAXBContext context = JAXBContext
@@ -68,7 +96,7 @@ public class JaxbParser {
 
     private HazidTable createHazidTableFromCompactHazid(final String xmlFile, final Procedurehazidtable hazid) throws InvalidHazid {
 
-        final HazidTable table = new HazidTable();
+        final HazidTable table = new HazidTable(hazid.getId());
 
         for (Row row: hazid.getRow()) {
            try {

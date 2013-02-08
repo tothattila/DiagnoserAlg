@@ -13,10 +13,16 @@ import java.util.List;
 public class HazidTable {
 
     ArrayList<HazidElement[]> hazidTable;
+    String identifier;
     final int COLUMN_SIZE = 30;
 
-    public HazidTable() {
+    public HazidTable(final String identifier) {
        hazidTable = new ArrayList<HazidElement[]>();
+       this.identifier = identifier;
+    }
+
+    public String getId() {
+        return identifier;
     }
 
     public void addRow(final HazidElement cause, final HazidElement deviation, final HazidElement implication) {
