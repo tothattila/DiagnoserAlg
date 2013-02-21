@@ -1,8 +1,7 @@
-package org.diagnoser.model.internal.deviation;
+package org.diagnoser.model.internal.element;
 
 import org.diagnoser.model.internal.Event;
 import org.diagnoser.model.internal.EventParser;
-import org.diagnoser.model.internal.HazidElement;
 import org.diagnoser.model.internal.KeyWord;
 
 /**

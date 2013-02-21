@@ -1,4 +1,4 @@
-package org.diagnoser.model.internal;
+package org.diagnoser.model.internal.element;
 
 /**
  * Created with IntelliJ IDEA.

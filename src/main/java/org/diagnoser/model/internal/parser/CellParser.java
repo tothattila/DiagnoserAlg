@@ -1,9 +1,12 @@
-package org.diagnoser.model.internal;
+package org.diagnoser.model.internal.parser;
 
-import org.diagnoser.model.internal.deviation.DeviationAtTime;
+import org.diagnoser.model.internal.KeyWord;
+import org.diagnoser.model.internal.element.DeviationAtTime;
+import org.diagnoser.model.internal.element.HazidElement;
+import org.diagnoser.model.internal.element.HazidRef;
+import org.diagnoser.model.internal.element.NotAvailable;
+import org.diagnoser.model.internal.element.RootCause;
 import org.diagnoser.model.internal.exception.InvalidCommand;
-
-import java.security.InvalidParameterException;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,4 +1,6 @@
-package org.diagnoser.model.internal;
+package org.diagnoser.model.internal.parser;
+
+import org.diagnoser.model.internal.QualitativeValue;
 
 import java.util.HashMap;
 import java.util.Map;
