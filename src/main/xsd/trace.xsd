@@ -8,6 +8,7 @@
   			<xs:element ref="goto" minOccurs="0" maxOccurs="1" />
 		 </xs:sequence>	  
 		 <xs:attribute name="id" type="xs:string" />
+		 <xs:attribute name="associatedhazid" type="xs:string" /> 
 	     <xs:attribute name="startcondition" type="xs:string" />
 	  </xs:complexType>      
 	</xs:element>
