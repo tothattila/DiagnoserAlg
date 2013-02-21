@@ -1,6 +1,6 @@
 package org.diagnoser.model.internal;
 
-import junit.framework.Assert;
+import org.diagnoser.model.internal.parser.EventParser;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

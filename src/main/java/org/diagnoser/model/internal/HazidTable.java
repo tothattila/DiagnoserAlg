@@ -1,5 +1,7 @@
 package org.diagnoser.model.internal;
 
+import org.diagnoser.model.internal.element.HazidElement;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class HazidTable {
 
     ArrayList<HazidElement[]> hazidTable;
     String identifier;
-    final int COLUMN_SIZE = 30;
+    final int COLUMN_SIZE = 60;
 
     public HazidTable(final String identifier) {
        hazidTable = new ArrayList<HazidElement[]>();
@@ -22,7 +24,7 @@ public class HazidTable {
     }
 
     public String getId() {
-        return identifier;
+        return new String(identifier);
     }
 
     public void addRow(final HazidElement cause, final HazidElement deviation, final HazidElement implication) {

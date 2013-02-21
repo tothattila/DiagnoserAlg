@@ -1,12 +1,15 @@
 package org.diagnoser.model.internal;
 
-import junit.framework.Assert;
-import org.diagnoser.model.internal.deviation.DeviationAtTime;
+import org.diagnoser.model.internal.element.DeviationAtTime;
+import org.diagnoser.model.internal.element.HazidElement;
+import org.diagnoser.model.internal.element.HazidRef;
+import org.diagnoser.model.internal.element.NotAvailable;
+import org.diagnoser.model.internal.element.RootCause;
 import org.diagnoser.model.internal.exception.InvalidCommand;
+import org.diagnoser.model.internal.parser.CellParser;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.security.InvalidParameterException;
 import java.util.Map;
 
 import static junit.framework.Assert.assertFalse;

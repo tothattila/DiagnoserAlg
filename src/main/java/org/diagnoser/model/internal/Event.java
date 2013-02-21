@@ -1,8 +1,8 @@
 package org.diagnoser.model.internal;
 
-import org.diagnoser.model.internal.deviation.Deviation;
+import org.diagnoser.model.internal.element.Deviation;
 import org.diagnoser.model.internal.exception.InvalidOutputSize;
-import sun.applet.resources.MsgAppletViewer_sv;
+import org.diagnoser.model.internal.parser.EventParser;
 
 import java.util.ArrayList;
 import java.util.HashMap;

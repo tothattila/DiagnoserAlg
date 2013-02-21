@@ -1,7 +1,7 @@
 package org.diagnoser.model.internal;
 
-import org.diagnoser.model.internal.deviation.Deviation;
-import org.diagnoser.model.internal.deviation.DeviationAtTime;
+import org.diagnoser.model.internal.element.Deviation;
+import org.diagnoser.model.internal.element.DeviationAtTime;
 import org.diagnoser.model.internal.exception.AlreadyPresentException;
 import org.diagnoser.model.internal.exception.InvalidOutputSize;
 
@@ -21,10 +21,20 @@ public class Trace {
 
     private Map<Integer, Event> trace;
     private String name;
+    private String associatedHazid;
 
-    public Trace(final String name) {
+    public Trace(final String name, final String associatedHazidTableId) {
         this.name = name;
         trace = new HashMap<Integer, Event>();
+        associatedHazid = associatedHazidTableId;
+    }
+
+    public String getName() {
+        return new String(name);
+    }
+
+    public String getAssociatedHazid() {
+        return associatedHazid;
     }
 
     public void addFragment(Integer timeInstant, Event traceFragment) throws AlreadyPresentException {
