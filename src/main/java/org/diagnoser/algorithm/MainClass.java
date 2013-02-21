@@ -1,20 +1,18 @@
 package org.diagnoser.algorithm;
 
+import org.diagnoser.algorithm.exception.InvalidDiagnoserParameter;
 import org.diagnoser.algorithm.exception.TooFewDeviations;
 import org.diagnoser.model.JaxbParser;
-import org.diagnoser.model.exception.InvalidFormatException;
 import org.diagnoser.model.exception.InvalidHazid;
-import org.diagnoser.model.exception.UnsupportedHazidType;
 import org.diagnoser.model.internal.*;
+import org.diagnoser.model.internal.element.HazidElement;
+import org.diagnoser.model.internal.element.RootCause;
 import org.diagnoser.model.internal.exception.*;
-import org.diagnoser.model.xml.compact.hazid.Procedurehazidtable;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,40 +23,44 @@ import java.util.Map;
  */
 public class MainClass {
 
+    private static DiagnoserParameters params;
+
     public static void main(final String[] args) {
 
-        if (args.length < 3) {
-            LogPrinter.printAndExit("Usage: ./command <hazidXmlDirectory> <nominalTrace> <analysableTrace> [verbose] [diagnose]");
+        try {
+            params=DiagnoserParameters.getInstance(args);
+        } catch (InvalidDiagnoserParameter exc) {
+            LogPrinter.printAndExit("Usage: ./command <analysableTrace> [verbose] [diagnose <startTraceId>]");
         }
         LogPrinter.printMessage("");
         LogPrinter.printCaption("   BEGIN DIAGNOSIS   ");
         Map<String,HazidTable> compactHazid = null;
-        Trace compactNominalTrace = null;
+        Map<String,Trace> compactNominalTrace = null;
         Trace compactTrace = null;
 
-        checkDir(args[0]);
-        checkFile(args[1], args[2]);
+        checkDir(params.getHazidDir());
+        checkDir(params.getTraceDir());
+        checkFile(params.getAnalysableTrace());
         try {
-            compactHazid = new JaxbParser().parseDir(args[0]);
+            compactHazid = new JaxbParser().parseHazidXmlDir(params.getHazidDir());
             if (compactHazid == null) {
                 LogPrinter.printAndExit("Hazid XML problem. Exiting.");
             }
 
-            compactNominalTrace = new JaxbParser().parseTraceXml(args[1]);
+            compactNominalTrace = new JaxbParser().parseTraceDir(params.getTraceDir());
             if (compactNominalTrace == null) {
                 LogPrinter.printAndExit("Nominal-trace XML problem. Exiting.");
             }
 
-            compactTrace = new JaxbParser().parseTraceXml(args[2]);
+            compactTrace = new JaxbParser().parseTraceXml(params.getAnalysableTrace());
             if (compactTrace == null) {
                 LogPrinter.printAndExit("Compact-trace XML problem. Exiting.");
             }
 
             LogPrinter.printMessage("Parsing completed.");
-            LogPrinter.printMessage("Nominal trace:  \n" + compactNominalTrace.toString() + " in file " + args[1]);
-            LogPrinter.printMessage("Analysis trace: \n" + compactTrace.toString() + " in file " + args[2]);
+            LogPrinter.printMessage("Analysis trace: \n" + compactTrace.toString() + " in file " + params.getAnalysableTrace());
 
-            if (!isVerbose(args)) {
+            if (!params.isVerbose()) {
                 LogPrinter.disable();
             }
 
@@ -76,26 +78,32 @@ public class MainClass {
         }  catch (InvalidTraceFragment invalidTraceFragment) {
             LogPrinter.printAndExit(" An invalid tarce fragment found.", invalidTraceFragment);
         } catch (InvalidHazid invalidCommand) {
-            LogPrinter.printAndExit("Hazid parsing problem ", invalidCommand);  //To change body of catch statement use File | Settings | File Templates.
+            LogPrinter.printAndExit("Hazid parsing problem ", invalidCommand);
         }
 
-        if (!isDiagnose(args)) {
+        LogPrinter.enable();
+
+        if (!params.isDiagnose()) {
             LogPrinter.printCaption("PARSING COMPLETE");
             LogPrinter.printAndExit("Diagnosis skipped by command line argument. Goodbye.");
         }
+
+        LogPrinter.printCaption("   CONSISTENCY CHECK   ");
+        consistencyCheck(compactNominalTrace,compactHazid,params.getStartNominalTrace());
+
         LogPrinter.printCaption("   EXECUTING DIAGNOSIS ALGORITHM   ");
 
-        DiagnosticAlgorithm algorithm = new DiagnosticAlgorithm(compactNominalTrace, compactTrace, compactHazid.values().iterator().next());
+        if (!params.isVerbose()) {
+            LogPrinter.disable();
+        }
+
+        DiagnosticAlgorithm algorithm = new DiagnosticAlgorithm(compactNominalTrace, compactTrace, compactHazid, params.getStartNominalTrace());
         try {
             algorithm.run();
         } catch (InvalidOutputSize invalidOutputSize) {
             LogPrinter.printAndExit("Invalid output size. ", invalidOutputSize);
         } catch (TooFewDeviations tooFewDeviations) {
             LogPrinter.printAndExit("Too few deviations. ", tooFewDeviations);
-        }
-
-        if (!isVerbose(args)) {
-           LogPrinter.enable();
         }
 
         LogPrinter.printCaption("     DIAGNOSTIC FINAL RESULTS      ");
@@ -109,9 +117,9 @@ public class MainClass {
         for (HazidElement elm : algorithm.getNrc()) {
             LogPrinter.printMessage(elm.toString());
         }
-
-
     }
+
+
 
     private static void printAllHazid(Map<String, HazidTable> compactHazid) {
         for (String s : compactHazid.keySet()) {
@@ -120,23 +128,7 @@ public class MainClass {
         }
     }
 
-    private static boolean isVerbose(String[] args) {
-        for (String s: args) {
-            if ("verbose".equals(s)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
-    private static boolean isDiagnose(String[] args) {
-        for (String s: args) {
-            if ("diagnose".equals(s)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     private static void checkFile(String... args) {
         for (String file : args) {
@@ -144,6 +136,22 @@ public class MainClass {
                 LogPrinter.printAndExit("Could not find file : " + file);
             }
         }
+    }
+
+    private static boolean consistencyCheck(Map<String,Trace> traces, Map<String,HazidTable> hazidTables, String startNominal) {
+        if (traces.get(startNominal) == null) {
+            LogPrinter.printAndExit("Start nominal trace named `"+startNominal+"` could not be found among traces.");
+            return false;
+        }
+
+        for (Trace t:traces.values()) {
+            if (hazidTables.get(t.getAssociatedHazid()) == null) {
+                LogPrinter.printAndExit("HAZID table `"+t.getAssociatedHazid()+"` referred by trace `"+t.getName()+"` could not be found among the set of HAZID tables.");
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private static void checkDir(String... args) {

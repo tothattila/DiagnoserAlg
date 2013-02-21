@@ -2,8 +2,10 @@ package org.diagnoser.algorithm;
 
 import org.diagnoser.algorithm.exception.TooFewDeviations;
 import org.diagnoser.model.internal.*;
-import org.diagnoser.model.internal.deviation.Deviation;
-import org.diagnoser.model.internal.deviation.DeviationAtTime;
+import org.diagnoser.model.internal.element.Deviation;
+import org.diagnoser.model.internal.element.DeviationAtTime;
+import org.diagnoser.model.internal.element.HazidElement;
+import org.diagnoser.model.internal.element.RootCause;
 import org.diagnoser.model.internal.exception.InvalidOutputSize;
 
 
@@ -24,10 +26,10 @@ public class DiagnosticAlgorithm {
     private List<RootCause> identifiedRootCauses;
     private List<HazidElement> identifiedNonRootCauses;
 
-    public DiagnosticAlgorithm(Trace nominalTrace, Trace analysisTrace, HazidTable hazidTable) {
-        this.nominalTrace = nominalTrace;
+    public DiagnosticAlgorithm(Map<String,Trace> nominalTraces, Trace analysisTrace, Map<String,HazidTable> hazidTables, String startTrace) {
+        this.nominalTrace = nominalTraces.get(startTrace);
         this.analysisTrace = analysisTrace;
-        this.hazidTable = hazidTable;
+        this.hazidTable = hazidTables.get(nominalTrace.getAssociatedHazid());
 
         identifiedRootCauses = new ArrayList<RootCause>();
         identifiedNonRootCauses = new ArrayList<HazidElement>();
@@ -50,7 +52,7 @@ public class DiagnosticAlgorithm {
         }
 
         if (allDeviations.size()<2) {
-            throw new TooFewDeviations("Only found " + allDeviations.size() + " number of deviations. Cannot perform diagnosis, quitting.");
+            throw new TooFewDeviations("Only " + allDeviations.size() + " deviation(s) were found. Cannot perform diagnosis, quitting.");
         }
 
         List<DeviationAtTime> initialDeviations;
@@ -153,14 +155,6 @@ public class DiagnosticAlgorithm {
         }
     }
 
-    private String createLevelIndent(int level) {
-        String l = "";
-        for (int i=0;i<level;i++) {
-            l+=" ";
-        }
-        return l;
-    }
-
     private List<List<DeviationAtTime>> generateDeviationPairsFrom(final List<DeviationAtTime> deviationList) {
         List<List<DeviationAtTime>> pairs = new ArrayList<List<DeviationAtTime>>();
 
@@ -189,16 +183,6 @@ public class DiagnosticAlgorithm {
                DeviationAtTime puffer = pair.get(0);
                pair.set(0,pair.get(1));
                pair.set(1,puffer);
-            }
-
-        }
-        return pairs;
-    }
-
-    private List<List<DeviationAtTime>> dropWhereTimeIsTheSame(List<List<DeviationAtTime>> pairs) {
-        for (List<DeviationAtTime> pair : pairs) {
-            if ((pair.get(0)).getTime() == (pair.get(1)).getTime()) {
-                pairs.remove(pair);
             }
 
         }
