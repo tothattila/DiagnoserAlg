@@ -1,4 +1,4 @@
-<trace>
+<trace id="TANK_FILL_OPERATION" associatedhazid="TANK_FILL">
 	<name>Tank empty procedure</name>
 	<event>1;VA1:1,VA2:0;LI:NO</event> 
 	<event>2;VA1:1,VA2:0;LI:LOW</event> 

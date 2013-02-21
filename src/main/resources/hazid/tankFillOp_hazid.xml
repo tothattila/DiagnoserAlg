@@ -1,4 +1,4 @@
-<procedurehazidtable>
+<procedurehazidtable id="TANK_FILL">
 
 	<row>
 		<cause>rootcause;TANK-LEAK(1)</cause>

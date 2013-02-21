@@ -1,5 +1,5 @@
 
-<trace>
+<trace id="MAINTENANCE_EMPTY_OPERATION" associatedhazid="MAINTENANCE_EMPTY">
 	<name>Maintenance empty procedure</name>
 	<event>1;VA1:0,VA2:1;LI:NRM</event> 
 	<event>2;VA1:0,VA2:1;LI:LOW</event> 

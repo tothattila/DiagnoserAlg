@@ -1,7 +1,5 @@
-<procedurehazidtable>
-
-	
-	<row>
+<procedurehazidtable id="MAINTENANCE_EMPTY">
+    <row>
 		<cause>rootcause;TANK-LEAK(1)</cause>
 		<deviation>smaller;1;VA1:0,VA2:1;LI:NRM</deviation>
 		<implication>smaller;2;VA1:0,VA2:1;LI:LOW</implication>
