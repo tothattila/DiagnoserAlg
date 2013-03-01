@@ -31,6 +31,8 @@ import java.util.Map;
  */
 public class JaxbParser {
 
+    private static final int NOT_YET_SET = -1;
+
     public Map<String,HazidTable> parseHazidXmlDir(final String dir) throws JAXBException, InvalidHazid {
 
         List<String> xmlFiles = new DirectoryLister().listAllXmlsInDirectory(dir);
@@ -89,7 +91,7 @@ public class JaxbParser {
     }
 
     private Trace createInternalTraceFromCompactXmlTrace(String xmlFile, org.diagnoser.model.xml.compact.trace.Trace xmlTrace) throws CorruptTraceException, AlreadyPresentException, InvalidOutput, InvalidTraceFragment {
-        int currentTime = 1;
+        int currentTime = NOT_YET_SET;
         Trace retTrace = traceFactory(xmlTrace);
 
         for (String fragment:xmlTrace.getEvent()) {
@@ -98,8 +100,8 @@ public class JaxbParser {
                 throw new InvalidTraceFragment("Invalid trace fragment in XML `" + xmlFile +"`" + " and the fragment is '" + fragment + "'" );
             }
 
-            if (EventParser.extractTimeInstant(fragment) != currentTime) {
-                throw new CorruptTraceException("Time flow is not continuous in trace at event line `"+ fragment +"` in file `"+ xmlFile+ "`");
+            if ((currentTime!= NOT_YET_SET) && (EventParser.extractTimeInstant(fragment) != (currentTime+1))) {
+                throw new CorruptTraceException("Time flow is not continuous in trace at event line `"+ fragment +"` in file `"+ xmlFile+ "`. Was " + EventParser.extractTimeInstant(fragment) + " but should be " + (currentTime+1) );
             }
 
             if (!EventParser.checkOutputValues(fragment)) {
@@ -112,7 +114,7 @@ public class JaxbParser {
 
             retTrace.addFragment(EventParser.extractTimeInstant(fragment), new Event(EventParser.extractInputMap(fragment), EventParser.extractOutputMap(fragment)));
 
-            currentTime++;
+            currentTime=EventParser.extractTimeInstant(fragment);
         }
 
 
