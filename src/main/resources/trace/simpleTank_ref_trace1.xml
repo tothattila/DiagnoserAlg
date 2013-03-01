@@ -1,0 +1,9 @@
+<trace id="SNORT1" associatedhazid="SNOHZ1">
+
+	<name>Simple-refernce-trace</name>
+	<event>1;VA:1,VB:0;TA:NO</event>
+	<event>2;VA:1,VB:0;TA:LOW</event>
+	<event>3;VA:1,VB:1;TA:NRM</event>
+	<goto traceid="SNORT2" />
+
+</trace>

@@ -1,0 +1,52 @@
+<procedurehazidtable id="SNOHZ1">
+   
+    <row>
+	   <cause>rootcause;TANK_LEVEL_SEN_NEG_BIAS</cause><deviation>later;1;VA:1,VB:0;TA:NO</deviation><implication>later;2;VA:1,VB:0;TA:LOW</implication>	
+	</row>
+	
+	<row>
+	   <cause>later;1;VA:1,VB:0;TA:NO</cause><deviation>later;2;VA:1,VB:0;TA:LOW</deviation><implication>never-happened;3;VA:1,VB:1;TA:NRM</implication>	
+	</row>
+	
+	<row>
+	   <cause>rootcause;TANK_LEVEL_SEN_NEG_BIAS</cause><deviation>smaller;1;VA:1,VB:0;TA:NO</deviation><implication>smaller;2;VA:1,VB:0;TA:LOW</implication>	
+	</row>
+	
+	<row>
+	   <cause>smaller;1;VA:1,VB:0;TA:NO</cause><deviation>smaller;2;VA:1,VB:0;TA:LOW</deviation><implication>smaller;3;VA:1,VB:1;TA:NRM</implication>	
+	</row>
+	
+	<row>
+	   <cause>rootcause;TANK_LEVEL_SEN_POS_BIAS</cause><deviation>never-happened;1;VA:1,VB:0;TA:NO</deviation><implication>earlier;2;VA:1,VB:0;TA:LOW</implication>	
+	</row>
+	
+	<row>
+	   <cause>never-happened;1;VA:1,VB:0;TA:NO</cause><deviation>earlier;2;VA:1,VB:0;TA:LOW</deviation><implication>earlier;3;VA:1,VB:1;TA:NRM</implication>	
+	</row>
+	
+	<row>
+	   <cause>rootcause;TANK_LEVEL_SEN_POS_BIAS</cause><deviation>greater;1;VA:1,VB:0;TA:NO</deviation><implication>greater;2;VA:1,VB:0;TA:LOW</implication>	
+	</row>
+	
+	<row>
+	   <cause>greater;1;VA:1,VB:0;TA:NO</cause><deviation>greater;2;VA:1,VB:0;TA:LOW</deviation><implication>greater;3;VA:1,VB:1;TA:NRM</implication>	
+	</row>
+	
+	<row>
+	   <cause>rootcause;TANK_INPUT_VALVE_CONGESTION;</cause><deviation>smaller;2;VA:1,VB:0;TA:LOW</deviation><implication>smaller;3;VA:1,VB:1;TA:NRM</implication>	
+	</row>
+	
+	<row>
+	   <cause>rootcause;TANK_INPUT_VALVE_CONGESTION;</cause><deviation>never-happened;2;VA:1,VB:0;TA:LOW</deviation><implication>never-happened;3;VA:1,VB:1;TA:NRM</implication>	
+	</row>
+	
+	<row>
+	   <cause>rootcause;TANK_LEAKAGE</cause><deviation>smaller;2;VA:1,VB:0;TA:LOW</deviation><implication>smaller;3;VA:1,VB:1;TA:NRM</implication>
+	</row>
+	
+	<row>
+	   <cause>rootcause;TANK_LEAKAGE</cause><deviation>never-happened;2;VA:1,VB:0;TA:LOW</deviation><implication>never-happened;3;VA:1,VB:1;TA:NRM</implication>
+	</row>
+	
+
+</procedurehazidtable>
