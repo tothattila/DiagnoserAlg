@@ -1,5 +1,6 @@
 package org.diagnoser.model.internal;
 
+import org.diagnoser.algorithm.LogPrinter;
 import org.diagnoser.model.internal.element.Deviation;
 import org.diagnoser.model.internal.exception.InvalidOutputSize;
 import org.diagnoser.model.internal.parser.EventParser;
@@ -22,10 +23,12 @@ public class Event {
     private Map<String,String> outputs;
 
     public Event(final Map<String,String> inputs, final Map<String,String> outputs) {
-
         this.inputs = inputs;
         this.outputs = outputs;
+    }
 
+    public Event(final String traceFragmentWithTime) {
+        this(EventParser.extractInputMap(traceFragmentWithTime), EventParser.extractOutputMap(traceFragmentWithTime));
     }
 
     public Map<String,String> getInputs() {
@@ -36,54 +39,61 @@ public class Event {
         return new HashMap<String,String>(outputs);
     }
 
-    public Event(final String traceFragmentWithTime) {
-        this(EventParser.extractInputMap(traceFragmentWithTime), EventParser.extractOutputMap(traceFragmentWithTime));
-    }
-
     public String toString() {
         String result = "";
 
         for (String in:inputs.keySet()) { result += "["+in+"]:'" + inputs.get(in) + "',"; }
-        result = result.substring(0, result.length()-1);
+        if (inputs.keySet().size()!=0) { result = result.substring(0, result.length()-1); }
 
         result += ";";
         for (String out:outputs.keySet()) { result += "["+out+"]:'" + outputs.get(out) + "',"; }
-        result = result.substring(0, result.length()-1);
+        if (outputs.keySet().size()!=0) { result = result.substring(0, result.length()-1); }
 
         return result;
     }
 
     public boolean compareInputWith(Event otherFragment) {
-        if (otherFragment.inputs.size() != inputs.size()) {
-            return false;
-        }
 
-        for (String i:inputs.keySet()) {
+        Map<String,String> otherInputs = otherFragment.inputs;
 
-            if (!inputs.get(i).equals(otherFragment.inputs.get(i))) {
+        for (String otherKey:otherInputs.keySet()) {
+            if (inputs.containsKey(otherKey) && !inputs.get(otherKey).equals(otherInputs.get(otherKey))) {
                return false;
             }
         }
         return true;
     }
 
-    public List<Deviation> compareOutputWith(Event otherFragment) throws InvalidOutputSize {
-        if (otherFragment.outputs.size() != outputs.size()) {
-            throw new InvalidOutputSize("Cannot compare `" + toString() + "` with `" + otherFragment.toString() + "`");
+    public boolean equals(final Event other) {
+
+        boolean result;
+
+        try {
+            result = (compareInputWith(other) && compareOutputWith(other).isEmpty());
+        } catch (InvalidOutputSize invalidOutputSize) {
+            result = false;
         }
+
+        return result;
+    }
+    public List<Deviation> compareOutputWith(Event otherFragment) throws InvalidOutputSize {
+
+        Map<String,String> otherOutputs = otherFragment.outputs;
         ArrayList<Deviation> results = new ArrayList<Deviation>();
-        for (String outputIndex:outputs.keySet()) {
-            switch(compareQualitativeValues(outputs.get(outputIndex), otherFragment.outputs.get(outputIndex))) {
-                case EQUALS: break;
-                case SMALLER: results.add(new Deviation(KeyWord.createSmaller(outputIndex), this)); break;
-                case GREATER: results.add(new Deviation(KeyWord.createGreater(outputIndex), this)); break;
+        for (String outputName:otherOutputs.keySet()) {
+            if (outputs.containsKey(outputName)) {
+                LogPrinter.printMessage("Comparing `"+this.toString()+"` with `" +  otherFragment.toString() + "`");
+                switch(compareQualitativeValues(outputs.get(outputName), otherOutputs.get(outputName))) {
+                    case EQUALS: break;
+                    case SMALLER: results.add(new Deviation(KeyWord.createSmaller(outputName), this)); break;
+                    case GREATER: results.add(new Deviation(KeyWord.createGreater(outputName), this)); break;
+                }
             }
         }
         return results;
     }
 
     private QualitativeRelation compareQualitativeValues(final String value, final String comparedTo) {
-
         if (QualitativeValue.valueOf(value).ordinal() > QualitativeValue.valueOf(comparedTo).ordinal()) {
             return QualitativeRelation.SMALLER;
         } else if (QualitativeValue.valueOf(value).ordinal() < QualitativeValue.valueOf(comparedTo).ordinal()) {
@@ -91,20 +101,6 @@ public class Event {
         }
 
         return QualitativeRelation.EQUALS;
-    }
-
-    public boolean equals(final Event other) {
-
-       boolean result;
-
-       try {
-          result = (compareInputWith(other) && compareOutputWith(other).isEmpty());
-       } catch (InvalidOutputSize invalidOutputSize) {
-          result = false;
-       }
-
-
-        return result;
     }
 
     private enum QualitativeRelation {
