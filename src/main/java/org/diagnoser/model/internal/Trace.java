@@ -4,6 +4,7 @@ import org.diagnoser.model.internal.element.Deviation;
 import org.diagnoser.model.internal.element.DeviationAtTime;
 import org.diagnoser.model.internal.exception.AlreadyPresentException;
 import org.diagnoser.model.internal.exception.InvalidOutputSize;
+import org.diagnoser.model.internal.exception.InvalidTimeInstant;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +38,10 @@ public class Trace {
         return associatedHazid;
     }
 
-    public void addFragment(Integer timeInstant, Event traceFragment) throws AlreadyPresentException {
+    public void addFragment(Integer timeInstant, Event traceFragment) throws AlreadyPresentException, InvalidTimeInstant {
+        if (timeInstant<1) {
+            throw new InvalidTimeInstant("Invalid time instant: "+timeInstant);
+        }
         if (trace.containsKey(timeInstant)) {
             throw new AlreadyPresentException("Trace `" + name + "` already contains value for time instant `" + timeInstant + "`. The value is `" + trace.get(timeInstant).toString() + "` while the new value to insert was `"+traceFragment.toString()+"`");
         }
@@ -53,14 +57,13 @@ public class Trace {
         return buffer.toString();
     }
 
-    public List<DeviationAtTime> collectDeviationsFrom(final Trace otherTrace) throws InvalidOutputSize {
+    public List<DeviationAtTime> collectDeviations(final Trace otherTrace) throws InvalidOutputSize {
 
         final ArrayList<DeviationAtTime> result = new ArrayList<DeviationAtTime>();
 
         for(Integer time:trace.keySet()) {
-            result.addAll(calculateDeviationAtTimeFrom(otherTrace,time));
+            result.addAll(calculateDeviationAtTimeAt(otherTrace, time));
         }
-
 
         for (Integer time :trace.keySet()) {
             if (!otherTrace.containsFragment(trace.get(time))) {
@@ -77,7 +80,7 @@ public class Trace {
         return result;
     }
 
-    public List<DeviationAtTime> calculateDeviationAtTimeFrom(final Trace otherTrace, final Integer time) throws InvalidOutputSize {
+    private List<DeviationAtTime> calculateDeviationAtTimeAt(final Trace otherTrace, final Integer time) throws InvalidOutputSize {
         final ArrayList<DeviationAtTime> result = new ArrayList<DeviationAtTime>();
 
         if (trace.containsKey(time) && otherTrace.trace.containsKey(time)) {
@@ -118,9 +121,7 @@ public class Trace {
                 return true;
             }
         }
-
         return false;
-
     }
 
 }

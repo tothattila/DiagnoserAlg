@@ -1,0 +1,63 @@
+Lenghty nominal trace:
+
+1;VA1:0,VA2:0;TA:0
+2;VA1:1,VA2:0;TA:0
+3;VA1:1,VA2:0;TA:L
+4;VA1:1,VA2:0;TA:N
+5;VA1:1,VA2:1;TA:N
+6;VA1:1,VA2:1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sub operational traces:
+
+1;VA1:0,VA2:0;TA:0
+2;VA1:1,VA2:0;TA:0
+3;VA1:1,VA2:0;TA:L
+4;VA1:1,VA2:0;TA:N
+5;VA1:1,VA2:1;TA:N
+
+1;VB1:0,VB2:0;TB:0
+2;VB1:1,VB2:0;TB:0
+3;VB1:1,VB2:0;TB:L
+4;VB1:1,VB2:0;TB:N
+5;VB1:1,VB2:1;TB:N
+
+1;VC1:0,VC2:0;TC:0
+2;VC1:1,VC2:0;TC:0
+3;VC1:1,VC2:0;TC:L
+4;VC1:1,VC2:0;TC:N
+5;VC1:1,VC2:1;TC:N
+
+
+ha nincs ket szelep csak 1 akkor az operatori eljarasok atfedik egymast es nem szedhetoek szet:
+
+VA:0,VB:0,VC:0,VD:0;TA:0,TB:0,TC:0
+VA:1,VB:0,VC:0,VD:0;TA:0,TB:0,TC:0
+VA:1,VB:1,VC:0,VD:0;TA:L,TB:0,TC:0
+VA:1,VB:1,VC:1,VD:0;TA:N,TB:L,TC:0
+VA:1,VB:1,VC:1,VD:0;TA:N,TB:N,TC:L
+VA:1,VB:1,VC:1,VD:0;TA:N,TB:N,TC:N
+VA:1,VB:1,VC:1,VD:1;TA:N,TB:N,TC:N
+
+kezdo operational trace-be nyugalmi allapot? tobbibe nem lehet tenni mert felborul a tomegmerleg
+
+ha nincs ket szelep akkor nem leeht szetszedni a rendszert?

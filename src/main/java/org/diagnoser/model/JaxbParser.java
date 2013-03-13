@@ -17,7 +17,6 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,13 +58,28 @@ public class JaxbParser {
 
         for (String s:xmlFiles) {
             LogPrinter.printMessage("Parsing file:"+s+"...");
-            Trace trace = parseTraceXml(s);
-            if (trace==null) {
-                LogPrinter.printMessage("Parsing failure, got null from JAXB parser! Check structure of XML.");
+
+            try {
+                Trace trace = parseTraceXml(s);
+                if (trace==null) {
+                    LogPrinter.printMessage("Parsing failure, got null from JAXB parser! Check structure of XML.");
+                } else {
+                    String newId = returnOrGenerateUniqueId(trace.getName(), result.size());
+                    result.put(newId, trace);
+                    LogPrinter.printMessage("...trace " + newId + " has been loaded");
+                }
             }
-            String newId = returnOrGenerateUniqueId(trace.getName(), result.size());
-            result.put(newId, trace);
-            LogPrinter.printMessage("...trace " + newId + " has been loaded");
+            catch(AlreadyPresentException e) {
+                LogPrinter.printMessage("Trace parsing: an event added to a time instant where another was present." + e.getMessage());
+                LogPrinter.printMessage("...trace loading skipped due to fault.");
+            }
+            catch(InvalidTimeInstant e) {
+                LogPrinter.printMessage("Trace parsing: invalid time instant found." + e.getMessage());
+                LogPrinter.printMessage("...trace loading skipped due to fault.");
+            }
+
+
+
         }
 
         return result;
@@ -82,7 +96,7 @@ public class JaxbParser {
         return createHazidTableFromCompactHazid(xmlFile, (Procedurehazidtable) unMarshaller.unmarshal(new File(xmlFile)));
     }
 
-    public Trace parseTraceXml(final String xmlFile) throws JAXBException, CorruptTraceException, AlreadyPresentException, InvalidOutput, InvalidTraceFragment {
+    public Trace parseTraceXml(final String xmlFile) throws JAXBException, CorruptTraceException, AlreadyPresentException, InvalidOutput, InvalidTraceFragment, InvalidTimeInstant {
         final JAXBContext context = JAXBContext.newInstance("org.diagnoser.model.xml.compact.trace");
         final Unmarshaller unMarshaller = context.createUnmarshaller();
 
@@ -90,7 +104,7 @@ public class JaxbParser {
         return createInternalTraceFromCompactXmlTrace(xmlFile, xmlTrace);
     }
 
-    private Trace createInternalTraceFromCompactXmlTrace(String xmlFile, org.diagnoser.model.xml.compact.trace.Trace xmlTrace) throws CorruptTraceException, AlreadyPresentException, InvalidOutput, InvalidTraceFragment {
+    private Trace createInternalTraceFromCompactXmlTrace(String xmlFile, org.diagnoser.model.xml.compact.trace.Trace xmlTrace) throws CorruptTraceException, AlreadyPresentException, InvalidOutput, InvalidTraceFragment, InvalidTimeInstant {
         int currentTime = NOT_YET_SET;
         Trace retTrace = traceFactory(xmlTrace);
 

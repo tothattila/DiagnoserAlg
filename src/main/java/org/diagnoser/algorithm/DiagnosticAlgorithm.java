@@ -45,7 +45,7 @@ public class DiagnosticAlgorithm {
 
     public void run() throws InvalidOutputSize, TooFewDeviations {
 
-        List<DeviationAtTime> allDeviations = nominalTrace.collectDeviationsFrom(analysisTrace);
+        List<DeviationAtTime> allDeviations = nominalTrace.collectDeviations(analysisTrace);
         LogPrinter.printMessage("Deviations:");
         for(Deviation d:allDeviations) {
             LogPrinter.printMessage(d.toString() );

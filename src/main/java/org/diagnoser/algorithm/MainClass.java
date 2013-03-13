@@ -12,7 +12,6 @@ import org.diagnoser.model.internal.exception.*;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * Created with IntelliJ IDEA.
@@ -70,6 +69,8 @@ public class MainClass {
         } catch (JAXBException exc) {
             LogPrinter.printAndExit("Exception happened during parsing. ", exc);
         } catch (AlreadyPresentException e) {
+            LogPrinter.printAndExit("Exception happened during parsing. ", e);
+        } catch (InvalidTimeInstant e) {
             LogPrinter.printAndExit("Exception happened during parsing. ", e);
         } catch (CorruptTraceException e) {
             LogPrinter.printAndExit("Exception happened during parsing. ", e);
