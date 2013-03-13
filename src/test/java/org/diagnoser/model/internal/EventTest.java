@@ -1,4 +1,4 @@
-package org.diagnoser.model.internal.parser;
+package org.diagnoser.model.internal;
 
 import org.diagnoser.model.internal.Event;
 import org.diagnoser.model.internal.exception.InvalidOutputSize;
